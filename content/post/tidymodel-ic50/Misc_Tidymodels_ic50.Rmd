@@ -1,0 +1,92 @@
+---
+title: "IC50 calculations using tidypredict"
+author: Yuka Takemon
+date: '2020-03-22'
+slug: tidymodel-ic50-tutorial
+categories:
+  - R
+  - tidymodel
+  - tutorial
+tags: [R, tidymodel, tutorial]
+subtitle: ''
+summary: ''
+authors: [YukaTakemon]
+lastmod: '2020-03-22'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+***
+
+## Why I decided to write this
+I needed to calculate the IC50 of a drug and at first glance it looked like most folks use pre-built tools on [PRISM](https://www.graphpad.com/scientific-software/prism/). I haven't yet taken the time to explore [tidymodels](https://github.com/tidymodels), so I decided to take this opportunity to learn some basic features. Also I have always been a big fan of open access & equal opportunity, especially when it comes to data analyses. Hopefully, a few people will stumble on to this and find it helpful for their work.  
+
+***
+
+## What is IC50?
+
+IC50, half maximal inhibitory concentration, is a measure of how much inhibitory substance is needed to inhibit 50% of a given population. Frequently IC50 is calculated to determine the concentration/dose of drug necessary to have a survival of 50% _in vitro_.
+
+Here we use [tidypredict](https://github.com/tidymodels/tidypredict), a package that is apart of the [tidymodels](https://github.com/tidymodels) universe, to create a simple function called `ic50` to predict the IC50 given a dosage response curve. 
+
+***
+
+## Modeling 
+
+We will take `mtcars` to create a fake dosage response data set to fit a linear model. We will reassign disp as inhibition data and wt as dosage. 
+```{r}
+library(pacman)
+p_load(tidypredict, tidyverse)
+  
+df <- mtcars %>% 
+  select(disp, wt) %>%
+  rename(inhibition = disp,
+         dose = wt)
+
+glimpse(df)
+```
+
+Since we know the maximum and minimum dosage and inhibition, we can calculate the 50 percentile inhibition. This will be used to predict the dosage necessary to achieve an IC50. 
+```{r}
+ic50 <- function(df){
+  
+  # Generate linear model of based on simulated dose response.
+  model <- lm(dose ~ inhibition, data = df)
+  
+  # Get 50th-percentile inhibition
+  test <- tibble(inhibition = max(df$inhibition) - (max(df$inhibition) - min(df$inhibition))/2)
+ 
+  return(tidypredict_to_column(test, model, vars = "dose")) # print new column "dose" and append prediction
+}
+
+ic50(df)
+```
+
+We calculate the 50% inhibition, `272`, which we predict to be achieved using a dosage of 3.5. 
+
+Let's plot the data to see what our hypothetical data would look like and how our prediction stacks up:
+```{r}
+pred <- ic50(df)
+
+ggplot(df, aes(dose, inhibition))+
+  geom_point()+
+  geom_point(data = pred, aes(x = dose, y = inhibition), 
+             colour = "red", size = 5)+
+  geom_smooth(method = "lm", se = F)
+```
+
+Here we show how our IC50 prediction stacks up in our dosage response data we simulated. At this point I would be comfortable using a dosage of 3.5 moving forward.
+
+***
+

@@ -1,0 +1,93 @@
+---
+title: "IC50 calculations using tidypredict"
+author: Yuka Takemon
+date: '2020-03-22'
+slug: tidymodel-ic50-tutorial
+categories:
+  - R
+  - tidymodel
+  - tutorial
+tags: [R, tidymodel, tutorial]
+subtitle: ''
+summary: ''
+authors: [YukaTakemon]
+lastmod: '2020-03-22'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#why-i-decided-to-write-this">Why I decided to write this</a></li>
+<li><a href="#what-is-ic50">What is IC50?</a></li>
+<li><a href="#modeling">Modeling</a></li>
+</ul>
+</div>
+
+<hr />
+<div id="why-i-decided-to-write-this" class="section level2">
+<h2>Why I decided to write this</h2>
+<p>I needed to calculate the IC50 of a drug and at first glance it looked like most folks use pre-built tools on <a href="https://www.graphpad.com/scientific-software/prism/">PRISM</a>. I haven’t yet taken the time to explore <a href="https://github.com/tidymodels">tidymodels</a>, so I decided to take this opportunity to learn some basic features. Also I have always been a big fan of open access &amp; equal opportunity, especially when it comes to data analyses. Hopefully, a few people will stumble on to this and find it helpful for their work.</p>
+<hr />
+</div>
+<div id="what-is-ic50" class="section level2">
+<h2>What is IC50?</h2>
+<p>IC50, half maximal inhibitory concentration, is a measure of how much inhibitory substance is needed to inhibit 50% of a given population. Frequently IC50 is calculated to determine the concentration/dose of drug necessary to have a survival of 50% <em>in vitro</em>.</p>
+<p>Here we use <a href="https://github.com/tidymodels/tidypredict">tidypredict</a>, a package that is apart of the <a href="https://github.com/tidymodels">tidymodels</a> universe, to create a simple function called <code>ic50</code> to predict the IC50 given a dosage response curve.</p>
+<hr />
+</div>
+<div id="modeling" class="section level2">
+<h2>Modeling</h2>
+<p>We will take <code>mtcars</code> to create a fake dosage response data set to fit a linear model. We will reassign disp as inhibition data and wt as dosage.</p>
+<pre class="r"><code>library(pacman)
+p_load(tidypredict, tidyverse)
+  
+df &lt;- mtcars %&gt;% 
+  select(disp, wt) %&gt;%
+  rename(inhibition = disp,
+         dose = wt)
+
+glimpse(df)</code></pre>
+<pre><code>## Rows: 32
+## Columns: 2
+## $ inhibition &lt;dbl&gt; 160.0, 160.0, 108.0, 258.0, 360.0, 225.0, 360.0, 146.7, 14…
+## $ dose       &lt;dbl&gt; 2.620, 2.875, 2.320, 3.215, 3.440, 3.460, 3.570, 3.190, 3.…</code></pre>
+<p>Since we know the maximum and minimum dosage and inhibition, we can calculate the 50 percentile inhibition. This will be used to predict the dosage necessary to achieve an IC50.</p>
+<pre class="r"><code>ic50 &lt;- function(df){
+  
+  # Generate linear model of based on simulated dose response.
+  model &lt;- lm(dose ~ inhibition, data = df)
+  
+  # Get 50th-percentile inhibition
+  test &lt;- tibble(inhibition = max(df$inhibition) - (max(df$inhibition) - min(df$inhibition))/2)
+ 
+  return(tidypredict_to_column(test, model, vars = &quot;dose&quot;)) # print new column &quot;dose&quot; and append prediction
+}
+
+ic50(df)</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   inhibition  dose
+##        &lt;dbl&gt; &lt;dbl&gt;
+## 1       272.  3.50</code></pre>
+<p>We calculate the 50% inhibition, <code>272</code>, which we predict to be achieved using a dosage of 3.5.</p>
+<p>Let’s plot the data to see what our hypothetical data would look like and how our prediction stacks up:</p>
+<pre class="r"><code>pred &lt;- ic50(df)
+
+ggplot(df, aes(dose, inhibition))+
+  geom_point()+
+  geom_point(data = pred, aes(x = dose, y = inhibition), 
+             colour = &quot;red&quot;, size = 5)+
+  geom_smooth(method = &quot;lm&quot;, se = F)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/post/tidymodel-ic50/Misc_Tidymodels_ic50_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p>Here we show how our IC50 prediction stacks up in our dosage response data we simulated. At this point I would be comfortable using a dosage of 3.5 moving forward.</p>
+<hr />
+</div>

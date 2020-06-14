@@ -1,0 +1,29 @@
+---
+title: "Building functions"
+author: "Yuka Takemon"
+date: "14/06/2020"
+slug: rstudio-training-ggplot2-tutorial
+categories:
+  - R
+  - functions
+  - tutorial
+tags: [R, functions, tutorial]
+subtitle: ''
+summary: ''
+authors: [YukaTakemon]
+lastmod: '2020-06-14'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```

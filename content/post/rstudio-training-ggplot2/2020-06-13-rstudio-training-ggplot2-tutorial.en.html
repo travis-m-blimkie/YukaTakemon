@@ -1,0 +1,313 @@
+---
+title: RStudio training ggplot2 tutorial
+author: Yuka Takemon
+date: '2020-02-26'
+slug: rstudio-training-ggplot2-tutorial
+categories:
+  - R
+  - ggplot2
+  - tutorial
+tags: [R, ggplot2, tutorial]
+subtitle: ''
+summary: ''
+authors: [YukaTakemon]
+lastmod: '2020-02-26'
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#introduction-to-ggplot2">Introduction to ggplot2</a></li>
+<li><a href="#additional-aesthetics">Additional Aesthetics</a></li>
+<li><a href="#linear-regression">Linear Regression</a></li>
+<li><a href="#geometries">Geometries</a></li>
+<li><a href="#changing-and-creating-labels">Changing and creating labels</a></li>
+<li><a href="#saving-plots">Saving plots</a></li>
+<li><a href="#resources">Resources</a></li>
+</ul>
+</div>
+
+<hr />
+<p>This lesson, “An introduction to ggplot2”, was adapted from <a href="http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html">The Carpentries</a> licenced under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<hr />
+<div id="objectives" class="section level4">
+<h4>Objectives:</h4>
+<ul>
+<li>To be able to use ggplot2 to generate publication quality graphics.</li>
+<li>To understand the basic grammar of graphics, including the aesthetics and geometry layers, transforming scales, and coloring or panelling by groups.</li>
+</ul>
+<hr />
+</div>
+<div id="introduction-to-ggplot2" class="section level3">
+<h3>Introduction to ggplot2</h3>
+<p>Plotting our data is one of the best ways to
+quickly explore it and the various relationships
+between variables.</p>
+<p>Today we’ll be learning about the ggplot2 package, because
+it is the most effective for creating publication quality
+graphics.</p>
+<p>ggplot2 is built on the grammar of graphics, the idea that any plot can be
+expressed from the same set of components: a <strong>data</strong> set, a
+<strong>coordinate system</strong>, and a set of <strong>geoms</strong>–the visual representation of data
+points.</p>
+<p>The key to understanding ggplot2 is thinking about a figure in layers.
+This idea may be familiar to you if you have used image editing programs like Photoshop, Illustrator, or
+Inkscape.</p>
+<p>Let’s load ggplot2 and the gapminder dataset and create our first plot:</p>
+<pre class="r"><code># First we&#39;ll load the gapminder data and the ggplot2 library
+library(gapminder)
+library(ggplot2)
+# library(tidyverse) contains ggplot2 too!</code></pre>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-vs-gdpPercap-scatter-1.png" width="672" /></p>
+<p>So the first thing we do is call the <code>ggplot</code> function. This function lets R
+know that we’re creating a new plot, and any of the arguments we give the
+<code>ggplot</code> function are the <em>global</em> options for the plot: they apply to all
+layers on the plot.</p>
+<p>We’ve passed in two arguments to <code>ggplot</code>. First, we tell <code>ggplot</code> what data we
+want to show on our figure, in this example the gapminder data we read in
+earlier. For the second argument we passed in the <code>aes</code> function, which
+tells <code>ggplot</code> how variables in the <strong>data</strong> map to <em>aesthetic</em> properties of
+the figure, in this case the <strong>x</strong> and <strong>y</strong> locations. Here we told <code>ggplot</code> we
+want to plot the “gdpPercap” column of the gapminder data frame on the x-axis, and
+the “lifeExp” column on the y-axis. Notice that we didn’t need to explicitly
+pass <code>aes</code> these columns (e.g. <code>x = gapminder[, "gdpPercap"]</code>), this is because
+<code>ggplot</code> is smart enough to know to look in the <strong>data</strong> for that column!</p>
+<p>By itself, the call to <code>ggplot</code> isn’t enough to draw a figure:</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/blank-1.png" width="672" /></p>
+<p>We need to tell <code>ggplot</code> how we want to visually represent the data, which we
+do by adding a new <strong>geom</strong> layer. In our example, we used <code>geom_point</code>, which
+tells <code>ggplot</code> we want to visually represent the relationship between <strong>x</strong> and
+<strong>y</strong> as a scatter plot of points:</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
+  geom_point()+
+  scale_x_log10()</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-vs-gdpPercap-scatter2-1.png" width="672" /></p>
+<p>There are also built-in axis transformation methods, for example:</p>
+<ul>
+<li><code>scale_y_sqrt()</code></li>
+<li><code>scale_y_reverse()</code></li>
+</ul>
+<p>Not all transformations are built (eg. log2() transformation), in which case we can also do this:</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = log2(gdpPercap), y = lifeExp)) +
+  geom_point()</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-vs-gdpPercap-scatter3-1.png" width="672" /></p>
+<p><br /></p>
+<div id="check-in-1" class="section level4">
+<h4><span style="color: firebrick;">Check-in 1</span></h4>
+<p>Fill in the blank to create a scatter plot showing changes in life expectancy over time.</p>
+<pre><code>ggplot(___ , ___( ___, ___)) +
+  ___()</code></pre>
+<p><br /></p>
+<hr />
+</div>
+</div>
+<div id="additional-aesthetics" class="section level3">
+<h3>Additional Aesthetics</h3>
+<p>We can also colour points based on different factors in the dataset, such as continent</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp, colour = continent)) +
+  geom_point()</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-vs-gdpPercap-scatter4-1.png" width="672" /></p>
+</div>
+<div id="linear-regression" class="section level3">
+<h3>Linear Regression</h3>
+<p>Let’s add a linear regression line to this plot.</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp, colour = continent)) +
+  geom_point()+
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-vs-gdpPercap-scatter5-1.png" width="672" /></p>
+<p>Here we see a linear regression line for each continent, but what is the over all global trend? Let’s redraw that regression line to represent the global trend.</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp,colour = continent)) +
+  geom_point()+
+  geom_smooth(method = &quot;lm&quot;, colour=&quot;black&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-vs-gdpPercap-scatter6-1.png" width="672" /></p>
+<div id="check-in-2" class="section level4">
+<h4><span style="color: firebrick;">Check-in 2</span></h4>
+<p>Discuss with you neighbour:</p>
+<ol style="list-style-type: decimal">
+<li>Based on your observation in the previous two examples, what do you think is the difference between <code>colour</code> that is defined inside or outside <code>aes()</code>? (2 mins)</li>
+<li>What is the difference between defining aes() in ggplot() vs in geom_point() such as the one below? (2 mins)</li>
+</ol>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp)) +
+  geom_point(aes(colour = continent))+
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/discussion1-1.png" width="672" /></p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = log(gdpPercap), y = lifeExp,colour = continent)) +
+  geom_point()+
+  geom_smooth(method = &quot;lm&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/discussion1-2.png" width="672" /></p>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="geometries" class="section level3">
+<h3>Geometries</h3>
+<p>Sometimes, using a scatter plot probably isn’t the best for visualizing change over time, especially when there are multiple countries in a continent.</p>
+<p>Instead, let’s tell <code>ggplot</code> to visualize the data as a line plot:</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x=year, y=lifeExp, by=country, color=continent)) +
+  geom_line()</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/lifeExp-line-1.png" width="672" /></p>
+<p>There are many <code>geom_</code> options depending on how many variables to plot.</p>
+<p>Single variable plots include:</p>
+<ul>
+<li><code>geom_histogram()</code></li>
+<li><code>geom_bar()</code></li>
+<li><code>geom_col()</code></li>
+<li><code>geom_density</code></li>
+</ul>
+<p>Two variable plots include:</p>
+<ul>
+<li><code>geom_line()</code></li>
+<li><code>geom_point()</code></li>
+<li><code>geom_boxplot()</code></li>
+<li><code>geom_violin()</code></li>
+</ul>
+<p>Here are some additional resources you can refer to for inspiration:</p>
+<ul>
+<li><a href="http://www.ggplot2-exts.org/gallery/">Community maintained ggplot examples</a></li>
+<li><a href="https://www.r-graph-gallery.com/">Beautifuly plots by Holtz Yan</a></li>
+</ul>
+<div id="challenge-1" class="section level4">
+<h4><span style="color: darkorange;">Challenge 1</span></h4>
+<p>Without running the following code, which of the following will generate a boxplot showing log2 transformed gdp per capita for each continent? Each continent should be filled in with unique colours.</p>
+<ol style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(aes(x= continent, y = gdpPercap, fill = continent))+
+  geom_boxplot()</code></pre>
+<ol start="2" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(gapminder, aes(x= continent, y = log2(gdpPercap)), fill = continent)+
+  geom_boxplot()</code></pre>
+<ol start="3" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(gapminder, aes(x= continent, y = log2(gdpPercap), fill = continent))+
+  geom_boxplot()</code></pre>
+<ol start="4" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(gapminder, aes(x= continent, y = gdpPercap))+
+  geom_boxplot(fill = continent)+
+  scale_x_log2()</code></pre>
+<p><br /></p>
+<hr />
+</div>
+</div>
+<div id="changing-and-creating-labels" class="section level3">
+<h3>Changing and creating labels</h3>
+<p>Let’s create a violin plot with labels</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = continent, y = lifeExp, fill = continent)) +
+  geom_violin()+
+  labs(title = &quot;Life expentancy of continents&quot;,
+      x = &quot;Continents&quot;,
+      y = &quot;Life expectancy&quot;,
+      fill = &quot;Continents colours&quot;,
+      tag = &quot;A&quot;)</code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/labels-1.png" width="672" /></p>
+<p>Let’s use a different background for this plot, there are a few built-in layers we can use:</p>
+<pre class="r"><code>ggplot(data = gapminder, aes(x = continent, y = lifeExp, fill = continent)) +
+  geom_violin()+
+  theme_bw() </code></pre>
+<p><img src="/post/rstudio-training-ggplot2/2020-06-13-rstudio-training-ggplot2-tutorial.en_files/figure-html/background-1.png" width="672" /></p>
+<p>We can also use:</p>
+<ul>
+<li><code>theme_grey</code></li>
+<li><code>theme_dark</code></li>
+<li><code>theme_light</code></li>
+</ul>
+<div id="challenge-1-1" class="section level4">
+<h4><span style="color: darkorange;">Challenge 1</span></h4>
+<p>Without running the code below, which of the following code will produce violin plot overlayed with a boxplot showing log10-transformed population for each continent? With <strong>only</strong> the boxplot filled with colour?</p>
+<ol style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(data = gapminder, aes(x = continent, y = pop, colour = continent)) +
+  geom_violin() 
+  geom_boxplot(width = 0.3)+
+  labs(title = Population by continents,
+      x = Continents,
+      y = log-transformed life expectancy)</code></pre>
+<ol start="2" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(data = gapminder, aes(x = continent, y = pop)) +
+  geom_violin()+
+  geom_boxplot(width = 0.3, aes(fill = continent))+
+  scale_y_log10()+
+  labs(title = &quot;Population by continents&quot;,
+      x = &quot;Continents&quot;,
+      y = &quot;log-transformed life expectancy&quot;)</code></pre>
+<ol start="3" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(data = gapminder, aes(x = continent, y = pop, fill = continent)) +
+  geom_violin()+
+  geom_boxplot(width = 0.3)+
+  scale_y_log10()+
+  labs(title = &quot;Population by continents&quot;,
+      x = &quot;Continents&quot;,
+      y = &quot;log-transformed life expectancy&quot;)</code></pre>
+<ol start="4" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre><code>ggplot(data = gapminder, x = continent, y = pop, colour = continent) +
+  geom_violin()+
+  geom_boxplot(width = 0.3, colour = continent)+
+  scale_y_log10()+
+  labs(title = &quot;Population by continents&quot;,
+      x = &quot;Continents&quot;,
+      y = &quot;log-transformed life expectancy&quot;)</code></pre>
+<p><br></p>
+<hr />
+</div>
+</div>
+<div id="saving-plots" class="section level3">
+<h3>Saving plots</h3>
+<p>Finally, we need to save the plots we created. We can save plots directly from the “Plots” pannel in RStudio by clicking <code>Export</code>. Alternatively, we can encode this into our script as well.</p>
+<p>For example, to save a plot as in .pdf we need to open a graphic device to draw our plots into like so:</p>
+<pre class="r"><code>pdf(&quot;My_first_ggplot.pdf&quot;, height = 3, width = 5)
+ggplot(data = gapminder, aes(x = continent, y = pop)) +
+  geom_violin()+
+  geom_boxplot(width = 0.3, aes(fill = continent))+
+  scale_y_log10()+
+  labs(title = &quot;Population by continents&quot;,
+      x = &quot;Continents&quot;,
+      y = &quot;log-transformed life expectancy&quot;)
+dev.off()</code></pre>
+<p>It is important here that we remember to close our graphic device when we are finished using <code>dev.off()</code>.</p>
+<p>There are many options for file formats each with different units for dimensions, which can be found in their help page using <code>?</code> (eg. <code>?pdf</code>).</p>
+<ul>
+<li><code>bmp()</code></li>
+<li><code>jpeg()</code></li>
+<li><code>png()</code></li>
+<li><code>tiff()</code></li>
+</ul>
+<p><br></p>
+<hr />
+</div>
+<div id="resources" class="section level3">
+<h3>Resources</h3>
+<p>This is a taste of what you can do with <code>ggplot2</code>. R Studio provides useful <a href="http://www.rstudio.com/wp-content/uploads/2015/03/ggplot2-cheatsheet.pdf">cheat sheets</a> of the different layers, and more
+extensive documentation is available on the <a href="http://docs.ggplot2.org/current/">ggplot2 website</a>.
+Finally, I cannot stress enough Googole is your best friend and search will
+usually send you to a relevant question and answer on Stack Overflow with reusable code to modify!</p>
+<p><br></p>
+<hr />
+</div>
