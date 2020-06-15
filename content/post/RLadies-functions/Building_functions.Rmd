@@ -7,6 +7,7 @@ categories:
   - R
   - functions
   - tutorial
+  - RLadies
 tags: [R, functions, tutorial]
 subtitle: ''
 summary: ''
@@ -28,8 +29,21 @@ output:
 knitr::opts_chunk$set(echo = TRUE) 
 ```
 
-```{r}
+This tutorial on "Building functions" was built for a workshop [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) 
 
+
+## Objectives
+
+In this short tutorial learners will understand:
+
+* What functions are and how to use them
+* Why custom functions are useful and when we might need them
+* How to build your own basic and complex functions
+
+### What are functions?
+
+
+```{r}
 testing <- 1+1
 print(testing)
 ```
