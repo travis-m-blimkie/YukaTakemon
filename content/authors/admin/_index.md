@@ -42,4 +42,4 @@ user_groups:
 - Visitors
 ---
 
-Yuka Takemon is a PhD student in Dr. Marco Marra group. Her interests include personalized oncogenomics, improving programming education, and promoting diversity in STEM.
+Yuka Takemon is a PhD student in Dr. Marco Marra's group at Canada's Michael Smith Genome Sciences Centre. Her interests include personalized oncogenomics, improving programming education, and promoting diversity in STEM.
