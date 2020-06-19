@@ -27,25 +27,73 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#objectives">Objectives</a><ul>
+<li><a href="#objectives">Objectives</a></li>
 <li><a href="#what-are-functions">What are functions?</a></li>
+<li><a href="#why-build-custom-functions">Why build custom functions?</a></li>
+<li><a href="#what-are-functions-1">What are functions?</a><ul>
+<li><a href="#challenge-1"><span style="color: darkorange;">Challenge 1</span>:</a></li>
 </ul></li>
 </ul>
 </div>
 
-<p>This tutorial on “Building functions” was built for a workshop <a href="https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">R-Ladies Vancouver</a></p>
+<p><br></p>
+<p><strong>Please note: This page is still under construction!</strong></p>
+<p><br></p>
+<p>This tutorial on “Building functions” was built for a workshop <a href="https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">R-Ladies Vancouver</a> and adapted works from <a href="http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html">The Carpentries</a> licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
 <div id="objectives" class="section level2">
 <h2>Objectives</h2>
 <p>In this short tutorial learners will understand:</p>
 <ul>
-<li>What functions are and how to use them</li>
+<li>What functions are and how are they useful</li>
 <li>Why custom functions are useful and when we might need them</li>
 <li>How to build your own basic and complex functions</li>
 </ul>
-<div id="what-are-functions" class="section level3">
-<h3>What are functions?</h3>
-<pre class="r"><code>testing &lt;- 1+1
-print(testing)</code></pre>
-<pre><code>## [1] 2</code></pre>
+<hr />
+</div>
+<div id="what-are-functions" class="section level2">
+<h2>What are functions?</h2>
+<p>Functions packages a sequence of operations into one, preserving it for ongoing use without the need to repeat them. In R functions are invoked with a special term followed immediately by <code>()</code>. For example you’ve probably already come across functions such as <code>library()</code> to load packages, <code>print()</code> to print characters, and <code>paste()</code> to string together multiple vectors to create one long vector.</p>
+<p>You have probably noticed that functions provide:</p>
+<ul>
+<li>A single name to invoke operations</li>
+<li>A relief from the need to remember the individual operations</li>
+<li>A defined set of inputs and expected outputs</li>
+</ul>
+<p>Functions are the basic building blocks of most programming languages, and user-defined functions constitute what we call “programming”. <strong>If you have written a function, you are a computer programmer!</strong></p>
+<hr />
+</div>
+<div id="why-build-custom-functions" class="section level2">
+<h2>Why build custom functions?</h2>
+<p>Although base R package and packages on CRAN provide many useful functions, there are instances where you’ll need to repeat a series of operations that you wish could be summed up into one function.</p>
+<hr />
+</div>
+<div id="what-are-functions-1" class="section level2">
+<h2>What are functions?</h2>
+<p>Before we talk about details let’s build our first function together and try using it.</p>
+<pre class="r"><code>multiply &lt;- function(a, b) {
+  the_product &lt;- a * b
+  return(the_product)
+}
+
+multiply(3,4)</code></pre>
+<pre><code>## [1] 12</code></pre>
+<p>Here are the bare bones essential components of a function</p>
+<ul>
+<li><code>variable &lt;- function()</code></li>
+<li>arguments within <code>()</code></li>
+<li>series of operations that leads to a result</li>
+<li><code>return()</code> result</li>
+</ul>
+<pre class="r"><code>variable &lt;- function(arguments) {
+  result &lt;- operations
+  return(result)
+}</code></pre>
+<p>You may have noticed a few things:</p>
+<ul>
+<li>no verbose</li>
+</ul>
+<div id="challenge-1" class="section level3">
+<h3><span style="color: darkorange;">Challenge 1</span>:</h3>
+<p>Build a function that</p>
 </div>
 </div>

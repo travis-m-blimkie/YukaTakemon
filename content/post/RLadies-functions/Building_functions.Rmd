@@ -24,27 +24,86 @@ output:
     toc: true
 ---
 
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) 
 ```
 
-This tutorial on "Building functions" was built for a workshop [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) 
+<br>
 
+**Please note: This page is still under construction!**
+
+<br>
+
+
+This tutorial on "Building functions" was built for a workshop [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) and adapted works from [The Carpentries](http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 
 
 ## Objectives
 
 In this short tutorial learners will understand:
 
-* What functions are and how to use them
+* What functions are and how are they useful
 * Why custom functions are useful and when we might need them
 * How to build your own basic and complex functions
 
-### What are functions?
+***
+
+## What are functions?
+
+Functions packages a sequence of operations into one, preserving it for ongoing use without the need to repeat them. In R functions are invoked with a special term followed immediately by `()`. For example you've probably already come across functions such as `library()` to load packages, `print()` to print characters, and `paste()` to string together multiple vectors to create one long vector. 
+
+You have probably noticed that functions provide:
+
+* A single name to invoke operations
+* A relief from the need to remember the individual operations
+* A defined set of inputs and expected outputs
+
+Functions are the basic building blocks of most programming languages, and user-defined functions constitute what we call “programming”. **If you have written a function, you are a computer programmer!**
+
+***
+
+## Why build custom functions?
+
+Although base R package and packages on CRAN provide many useful functions, there are instances where you'll need to repeat a series of operations that you wish could be summed up into one function. 
+
+***
+
+## What are functions?
+
+Before we talk about details let's build our first function together and try using it. 
+
+```{r}
+multiply <- function(a, b) {
+  the_product <- a * b
+  return(the_product)
+}
+
+multiply(3,4)
+```
+
+Here are the bare bones essential components of a function
+
+* `variable <- function()`
+* arguments within `()`
+* series of operations that leads to a result
+* `return()` result
+
+```{r, eval = FALSE}
+variable <- function(arguments) {
+  result <- operations
+  return(result)
+}
+```
+
+
+You may have noticed a few things:
+
+* no verbose
+
+### <span style="color: darkorange;">Challenge 1</span>:
+Build a function that 
 
 
 ```{r}
-testing <- 1+1
-print(testing)
+
 ```
 
