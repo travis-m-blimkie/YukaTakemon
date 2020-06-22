@@ -1,18 +1,18 @@
 ---
 title: "Building functions"
 author: "Yuka Takemon"
-date: "14/06/2020"
+date: "21/06/2020"
 slug: rstudio-training-ggplot2-tutorial
 categories:
   - R
   - functions
   - tutorial
   - RLadies
-tags: [R, functions, tutorial]
+tags: [RLadies, R, functions, tutorial]
 subtitle: ''
 summary: ''
 authors: [YukaTakemon]
-lastmod: '2020-06-14'
+lastmod: '2020-06-21'
 featured: no
 image:
   caption: ''
@@ -30,32 +30,38 @@ output:
 <li><a href="#objectives">Objectives</a></li>
 <li><a href="#what-are-functions">What are functions?</a></li>
 <li><a href="#why-build-custom-functions">Why build custom functions?</a></li>
-<li><a href="#what-are-functions-1">What are functions?</a><ul>
-<li><a href="#challenge-1"><span style="color: darkorange;">Challenge 1</span>:</a></li>
+<li><a href="#defining-functions">Defining functions</a><ul>
+<li><a href="#what-did-you-observe"><span style="color: lightgreen;">What did you observe?</span>:</a></li>
+<li><a href="#challenge-1-10-mins"><span style="color: darkorange;">Challenge 1:</span> (10 mins)</a></li>
+<li><a href="#challenge-2-10-mins"><span style="color: darkorange;">Challenge 2:</span> (10 mins)</a></li>
 </ul></li>
+<li><a href="#combining-functions">Combining functions</a><ul>
+<li><a href="#challenge-3-15-mins"><span style="color: darkorange;">Challenge 3:</span> (15 mins)</a></li>
+</ul></li>
+<li><a href="#sourcing-functions">Sourcing functions</a></li>
 </ul>
 </div>
 
 <p><br></p>
 <p><strong>Please note: This page is still under construction!</strong></p>
 <p><br></p>
-<p>This tutorial on “Building functions” was built for a workshop <a href="https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">R-Ladies Vancouver</a> and adapted works from <a href="http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html">The Carpentries</a> licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<p>This tutorial on “Building functions” was built for a <a href="https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">R-Ladies Vancouver</a> workshop, which adapted works from <a href="http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html">The Carpentries</a> licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
 <div id="objectives" class="section level2">
 <h2>Objectives</h2>
-<p>In this short tutorial learners will understand:</p>
+<p>This short tutorial will attempt to show:</p>
 <ul>
 <li>What functions are and how are they useful</li>
-<li>Why custom functions are useful and when we might need them</li>
-<li>How to build your own basic and complex functions</li>
+<li>Why custom functions are necessary and when we might need them</li>
+<li>How to build your own basic functions and how to source them</li>
 </ul>
 <hr />
 </div>
 <div id="what-are-functions" class="section level2">
 <h2>What are functions?</h2>
-<p>Functions packages a sequence of operations into one, preserving it for ongoing use without the need to repeat them. In R functions are invoked with a special term followed immediately by <code>()</code>. For example you’ve probably already come across functions such as <code>library()</code> to load packages, <code>print()</code> to print characters, and <code>paste()</code> to string together multiple vectors to create one long vector.</p>
+<p>Functions package a sequence of operations into one, preserving it for ongoing use without the need to repeat them. In R functions are invoked with a special term followed immediately by <code>()</code>. For example you’ve probably already come across functions such as <code>library()</code> to load packages, <code>print()</code> to print characters, and <code>paste()</code> to string together multiple vectors to create one long vector.</p>
 <p>You have probably noticed that functions provide:</p>
 <ul>
-<li>A single name to invoke operations</li>
+<li>A single memorable name to invoke operations</li>
 <li>A relief from the need to remember the individual operations</li>
 <li>A defined set of inputs and expected outputs</li>
 </ul>
@@ -67,33 +73,117 @@ output:
 <p>Although base R package and packages on CRAN provide many useful functions, there are instances where you’ll need to repeat a series of operations that you wish could be summed up into one function.</p>
 <hr />
 </div>
-<div id="what-are-functions-1" class="section level2">
-<h2>What are functions?</h2>
+<div id="defining-functions" class="section level2">
+<h2>Defining functions</h2>
 <p>Before we talk about details let’s build our first function together and try using it.</p>
 <pre class="r"><code>multiply &lt;- function(a, b) {
   the_product &lt;- a * b
   return(the_product)
 }
 
-multiply(3,4)</code></pre>
+multiply(3, 4)</code></pre>
 <pre><code>## [1] 12</code></pre>
-<p>Here are the bare bones essential components of a function</p>
+<div id="what-did-you-observe" class="section level3">
+<h3><span style="color: lightgreen;">What did you observe?</span>:</h3>
+<p>What happened when you executed <code>multiply &lt;- function(a, b){...}</code>?</p>
 <ul>
-<li><code>variable &lt;- function()</code></li>
-<li>arguments within <code>()</code></li>
-<li>series of operations that leads to a result</li>
+<li>No verbose</li>
+<li>Addition of function to <em>global environment</em></li>
+<li>No intermediate variables produced in <em>global environment</em></li>
+</ul>
+<p><strong>Here are the essential building blocks of a function</strong></p>
+<ul>
+<li><code>meaningful_name &lt;- function()</code></li>
+<li>arguments are defined within <code>()</code></li>
+<li>series of operations are inclused within <code>{}</code></li>
 <li><code>return()</code> result</li>
 </ul>
-<pre class="r"><code>variable &lt;- function(arguments) {
-  result &lt;- operations
+<pre class="r"><code>meaningful_name &lt;- function(argument1, arugment2, ...) {
+  result &lt;- operation_using(argument1, argument2)
   return(result)
 }</code></pre>
-<p>You may have noticed a few things:</p>
-<ul>
-<li>no verbose</li>
-</ul>
-<div id="challenge-1" class="section level3">
-<h3><span style="color: darkorange;">Challenge 1</span>:</h3>
-<p>Build a function that</p>
 </div>
+<div id="challenge-1-10-mins" class="section level3">
+<h3><span style="color: darkorange;">Challenge 1:</span> (10 mins)</h3>
+<p>Using the building blocks I showed you above, fill in the blanks below to build function that converts Fahrenheit to Kelvin. Here is the formula: <code>(°F − 32) × 5/9 + 273.15 = K</code>.</p>
+<pre class="r"><code>F_to_K &lt;- _____(temp) {
+  kelvin &lt;- ________
+  _____(kelvin)
+}</code></pre>
+<p>Let’s test it out! 32°F is the freezing point, which should correspond to 273.15K.</p>
+<pre class="r"><code>F_to_K(32)</code></pre>
+<pre><code>## [1] 273.15</code></pre>
+<hr />
+</div>
+<div id="challenge-2-10-mins" class="section level3">
+<h3><span style="color: darkorange;">Challenge 2:</span> (10 mins)</h3>
+<p>Now let’s build a function called <code>K_to_C()</code> that converts Kelvin to Celsius. The formula for the conversion is: <code>K - 273.15 = Celsius</code>.</p>
+<p>Take the next 10 mins to figure out which on of these will give us the right function? if not why? Feel free to try them about.</p>
+<ol style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>K_to_C() &lt;- function(temp){
+ celsius &lt;- temp - 273.15
+ return(celsius)
+  }</code></pre>
+<ol start="2" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>K_to_C &lt;- function(temp){
+ celsius &lt;- temp - 273.15
+  }</code></pre>
+<ol start="3" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>K_to_C &lt;- function(kelvin){
+ celsius &lt;- kelvin - 273.15
+ return(celsius)
+  }</code></pre>
+<ol start="4" style="list-style-type: upper-alpha">
+<li></li>
+</ol>
+<pre class="r"><code>K_to_C &lt;- function(kelvin){
+ celsius &lt;- temp - 273.15
+ return(celsius)
+  }</code></pre>
+<hr />
+</div>
+</div>
+<div id="combining-functions" class="section level2">
+<h2>Combining functions</h2>
+<p>The real power of programming comes when you can mix and match various functions together. Once functions are defined, we can use it within other functions or string multiple functions together to create a single more powerful operation</p>
+<div id="challenge-3-15-mins" class="section level3">
+<h3><span style="color: darkorange;">Challenge 3:</span> (15 mins)</h3>
+<p>Build a new function <code>F_to_C()</code> that uses the functions we previously built, <code>F_to_K()</code> and <code>K_to_C()</code>, to convert Fahrenheit directly to Celsius.</p>
+<p>Let me start you off:</p>
+<pre class="r"><code>F_to_C &lt;- function(){
+  
+}</code></pre>
+<hr />
+</div>
+</div>
+<div id="sourcing-functions" class="section level2">
+<h2>Sourcing functions</h2>
+<p>There are different ways to call on custom defined function. As we have been doing, you can defined your custom function at the beginning of each script as you use them. However, if you are using the same custom functions across different projects scripts it becomes too repetitive and forces you to either remember each step and dig through previous scripts to copy and paste it into your new script.</p>
+<p>In programming, we want to reduce repetition if possible, and this is where sourcing functions come in.</p>
+<p>First, let’s open a new R script and paste our custom functions from below. Next save the the code block in to a script called. <code>my_func.R</code>.</p>
+<pre class="r"><code>F_to_K &lt;- function(temp) {
+  kelvin &lt;- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+
+K_to_C &lt;- function(kelvin){
+ celsius &lt;- kelvin - 273.15
+ return(celsius)
+}
+
+F_to_C &lt;- function(temp){
+  K_result &lt;- F_to_K(temp)
+  celsius &lt;- K_to_C(K_result)
+  return(celsius)
+}</code></pre>
+<p>Now let’s delete all the variables and functions we’ve created so far and “reset” our environment using <code>rm(list = ls())</code></p>
+<p>To source our set of three functions, we use the <code>source()</code> function locate our <code>my_func.R</code> script.</p>
+<pre class="r"><code>source(&quot;~/Desktop/my_func.R&quot;)</code></pre>
+<p>You now see three familiar functions in your <em>global environment</em></p>
 </div>

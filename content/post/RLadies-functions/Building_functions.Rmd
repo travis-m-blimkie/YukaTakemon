@@ -1,18 +1,18 @@
 ---
 title: "Building functions"
 author: "Yuka Takemon"
-date: "14/06/2020"
+date: "21/06/2020"
 slug: rstudio-training-ggplot2-tutorial
 categories:
   - R
   - functions
   - tutorial
   - RLadies
-tags: [R, functions, tutorial]
+tags: [RLadies, R, functions, tutorial]
 subtitle: ''
 summary: ''
 authors: [YukaTakemon]
-lastmod: '2020-06-14'
+lastmod: '2020-06-21'
 featured: no
 image:
   caption: ''
@@ -35,25 +35,25 @@ knitr::opts_chunk$set(echo = TRUE)
 <br>
 
 
-This tutorial on "Building functions" was built for a workshop [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) and adapted works from [The Carpentries](http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 
+This tutorial on "Building functions" was built for a [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) workshop, which adapted works from [The Carpentries](http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 
 
 ## Objectives
 
-In this short tutorial learners will understand:
+This short tutorial will attempt to show:
 
 * What functions are and how are they useful
-* Why custom functions are useful and when we might need them
-* How to build your own basic and complex functions
+* Why custom functions are necessary and when we might need them
+* How to build your own basic functions and how to source them
 
 ***
 
 ## What are functions?
 
-Functions packages a sequence of operations into one, preserving it for ongoing use without the need to repeat them. In R functions are invoked with a special term followed immediately by `()`. For example you've probably already come across functions such as `library()` to load packages, `print()` to print characters, and `paste()` to string together multiple vectors to create one long vector. 
+Functions package a sequence of operations into one, preserving it for ongoing use without the need to repeat them. In R functions are invoked with a special term followed immediately by `()`. For example you've probably already come across functions such as `library()` to load packages, `print()` to print characters, and `paste()` to string together multiple vectors to create one long vector. 
 
 You have probably noticed that functions provide:
 
-* A single name to invoke operations
+* A single memorable name to invoke operations
 * A relief from the need to remember the individual operations
 * A defined set of inputs and expected outputs
 
@@ -67,7 +67,7 @@ Although base R package and packages on CRAN provide many useful functions, ther
 
 ***
 
-## What are functions?
+## Defining functions
 
 Before we talk about details let's build our first function together and try using it. 
 
@@ -77,33 +77,149 @@ multiply <- function(a, b) {
   return(the_product)
 }
 
-multiply(3,4)
+multiply(3, 4)
 ```
 
-Here are the bare bones essential components of a function
+### <span style="color: lightgreen;">What did you observe?</span>:
 
-* `variable <- function()`
-* arguments within `()`
-* series of operations that leads to a result
+What happened when you executed `multiply <- function(a, b){...}`?
+
+* No verbose
+* Addition of function to _global environment_
+* No intermediate variables produced in _global environment_
+
+**Here are the essential building blocks of a function**
+
+* `meaningful_name <- function()`
+* arguments are defined within `()`
+* series of operations are inclused within `{}`
 * `return()` result
 
 ```{r, eval = FALSE}
-variable <- function(arguments) {
-  result <- operations
+meaningful_name <- function(argument1, arugment2, ...) {
+  result <- operation_using(argument1, argument2)
   return(result)
 }
 ```
 
+### <span style="color: darkorange;">Challenge 1:</span> (10 mins)
+Using the building blocks I showed you above, fill in the blanks below to build function that converts Fahrenheit to Kelvin. Here is the formula: `(°F − 32) × 5/9 + 273.15 = K`.
 
-You may have noticed a few things:
+```{r, eval = F}
+F_to_K <- _____(temp) {
+  kelvin <- ________
+  _____(kelvin)
+}
+```
 
-* no verbose
-
-### <span style="color: darkorange;">Challenge 1</span>:
-Build a function that 
-
+Let's test it out! 32°F is the freezing point, which should correspond to 273.15K.
+```{r, echo = F}
+F_to_K <- function(temp) {
+  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+```
 
 ```{r}
+F_to_K(32)
+```
+
+***
+
+### <span style="color: darkorange;">Challenge 2:</span> (10 mins)
+Now let's build a function called `K_to_C()` that converts Kelvin to Celsius. The formula for the conversion is: `K - 273.15 = Celsius`.
+
+Take the next 10 mins to figure out which on of these will give us the right function? if not why?  Feel free to try them about.
+
+A.
+```{r, eval = F}
+K_to_C() <- function(temp){
+ celsius <- temp - 273.15
+ return(celsius)
+  }
+```
+
+B.
+```{r, eval = F}
+K_to_C <- function(temp){
+ celsius <- temp - 273.15
+  }
+```
+
+C.
+```{r, eval = T}
+K_to_C <- function(kelvin){
+ celsius <- kelvin - 273.15
+ return(celsius)
+  }
+```
+
+D.
+```{r, eval = F}
+K_to_C <- function(kelvin){
+ celsius <- temp - 273.15
+ return(celsius)
+  }
+```
+
+***
+
+## Combining functions
+
+The real power of programming comes when you can mix and match various functions together. Once functions are defined, we can use it within other functions or string multiple functions together to create a single more powerful operation
+
+### <span style="color: darkorange;">Challenge 3:</span> (15 mins)
+
+Build a new function `F_to_C()` that uses the functions we previously built, `F_to_K()` and `K_to_C()`, to convert Fahrenheit directly to Celsius. 
+
+Let me start you off:
+
+```{r}
+F_to_C <- function(){
+  
+}
 
 ```
+
+***
+
+## Sourcing functions
+
+There are different ways to call on custom defined function. As we have been doing, you can defined your custom function at the beginning of each script as you use them. However, if you are using the same custom functions across different projects scripts it becomes too repetitive and forces you to either remember each step and dig through previous scripts to copy and paste it into your new script.
+
+In programming, we want to reduce repetition if possible, and this is where sourcing functions come in. 
+
+First, let's open a new R script and paste our custom functions from below. Next save the the code block in to a script called. `my_func.R`. 
+
+```{r}
+F_to_K <- function(temp) {
+  kelvin <- ((temp - 32) * (5 / 9)) + 273.15
+  return(kelvin)
+}
+
+K_to_C <- function(kelvin){
+ celsius <- kelvin - 273.15
+ return(celsius)
+}
+
+F_to_C <- function(temp){
+  K_result <- F_to_K(temp)
+  celsius <- K_to_C(K_result)
+  return(celsius)
+}
+```
+
+Now let's delete all the variables and functions we've created so far and "reset" our environment using `rm(list = ls())`
+
+To source our set of three functions, we use the `source()` function locate our `my_func.R` script.
+
+```{r, eval = F}
+source("~/Desktop/my_func.R")
+```
+
+You now see three familiar functions in your _global environment_ 
+
+
+
+
 
