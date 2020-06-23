@@ -2,7 +2,7 @@
 title: "Building functions"
 author: "Yuka Takemon"
 date: "21/06/2020"
-slug: rstudio-training-ggplot2-tutorial
+slug: rladies-building-functions
 categories:
   - R
   - functions
