@@ -44,4 +44,21 @@ date_format = "Jan 2006"
   date_end = "2018-10-31"
   description = """Used diversity outbred mouse models to identify modifiers of X-linked Alport Syndrom and drivers of renal aging"""
 
+[[experience]]
+  title = "Undergraduate Summer Reserach Fellow"
+  company = "The Jackson Laboratory"
+  company_url = ""
+  location = "Bar Harbor, Maine, USA"
+  date_start = "2013-06-01"
+  date_end = "2013-09-01"
+  
+[[experience]]
+  title = "Undergraduate Summer Reserach Fellow"
+  company = "Mount Desert Island Biological Laboratory"
+  company_url = ""
+  location = "Bar Harbor, Maine, USA"
+  date_start = "2012-06-01"
+  date_end = "2012-09-01"
+  description = """Used Leucoraja erinacea (little skates) to better understand hematopoietic stem cell niches"""
+  
 +++

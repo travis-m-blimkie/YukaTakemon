@@ -12,7 +12,7 @@ education:
     year: 2018
   - course: BA in Human Ecology
     institution: College of the Atlantic
-    year: 2010
+    year: 2014
 email: ""
 interests:
 - Genomics

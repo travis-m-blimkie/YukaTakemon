@@ -241,6 +241,7 @@ library(emo)
 ```
 
 There are two ways to print emojis by using:
+
 * `ji_keywords`
 * `ji`
 
