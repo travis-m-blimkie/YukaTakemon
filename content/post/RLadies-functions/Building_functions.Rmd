@@ -1,7 +1,6 @@
 ---
 title: "Building functions"
 author: "Yuka Takemon"
-date: "21/06/2020"
 slug: rladies-building-functions
 categories:
   - R
@@ -276,5 +275,5 @@ cat(paste(names(emojis), ": ", emojis, collapse = "\n"))
 
 ***
 
-**Have suggestions or comments? [Contact me](https://yukatakemon.netlify.app/)**
+**Have suggestions or comments? [Contact me](https://yukatakemon.netlify.app/#contact)**
 
