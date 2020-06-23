@@ -8,7 +8,9 @@ categories:
   - functions
   - tutorial
   - RLadies
-tags: [RLadies, R, functions, tutorial]
+  - bonus_content
+  - emoji
+tags: [RLadies, R, functions, tutorial, bonus_content, emoji]
 subtitle: ''
 summary: ''
 authors: [YukaTakemon]
@@ -21,31 +23,15 @@ image:
 projects: []
 output:
   blogdown::html_page:
-    toc: true
+    toc: false
 ---
 
 
-<div id="TOC">
-<ul>
-<li><a href="#objectives">Objectives</a></li>
-<li><a href="#what-are-functions">What are functions?</a></li>
-<li><a href="#why-build-custom-functions">Why build custom functions?</a></li>
-<li><a href="#defining-functions">Defining functions</a><ul>
-<li><a href="#what-did-you-observe"><span style="color: lightgreen;">What did you observe?</span>:</a></li>
-<li><a href="#challenge-1-10-mins"><span style="color: darkorange;">Challenge 1:</span> (10 mins)</a></li>
-<li><a href="#challenge-2-10-mins"><span style="color: darkorange;">Challenge 2:</span> (10 mins)</a></li>
-</ul></li>
-<li><a href="#combining-functions">Combining functions</a><ul>
-<li><a href="#challenge-3-15-mins"><span style="color: darkorange;">Challenge 3:</span> (15 mins)</a></li>
-</ul></li>
-<li><a href="#sourcing-functions">Sourcing functions</a></li>
-</ul>
-</div>
 
-<p><br></p>
 <p><strong>Please note: This page is still under construction!</strong></p>
-<p><br></p>
-<p>This tutorial on “Building functions” was built for a <a href="https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">R-Ladies Vancouver</a> workshop, which adapted works from <a href="http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html">The Carpentries</a> licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
+<ul>
+<li>Pending code of conduct</li>
+</ul>
 <div id="objectives" class="section level2">
 <h2>Objectives</h2>
 <p>This short tutorial will attempt to show:</p>
@@ -54,6 +40,7 @@ output:
 <li>Why custom functions are necessary and when we might need them</li>
 <li>How to build your own basic functions and how to source them</li>
 </ul>
+<p>This tutorial on “Building functions” was built for a <a href="https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor">R-Ladies Vancouver</a> workshop, which adapted works from <a href="http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html">The Carpentries</a> licensed under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a>.</p>
 <hr />
 </div>
 <div id="what-are-functions" class="section level2">
@@ -75,7 +62,18 @@ output:
 </div>
 <div id="defining-functions" class="section level2">
 <h2>Defining functions</h2>
-<p>Before we talk about details let’s build our first function together and try using it.</p>
+<p><strong>Here are the essential building blocks of a function</strong></p>
+<ul>
+<li><code>meaningful_name &lt;- function()</code></li>
+<li>arguments are defined within <code>()</code></li>
+<li>series of operations are inclused within <code>{}</code></li>
+<li><code>return()</code> result</li>
+</ul>
+<pre class="r"><code>meaningful_name &lt;- function(argument1, arugment2, ...) {
+  result &lt;- operation_using(argument1, argument2)
+  return(result)
+}</code></pre>
+<p>Let’s build our first function together and try it out.</p>
 <pre class="r"><code>multiply &lt;- function(a, b) {
   the_product &lt;- a * b
   return(the_product)
@@ -91,17 +89,6 @@ multiply(3, 4)</code></pre>
 <li>Addition of function to <em>global environment</em></li>
 <li>No intermediate variables produced in <em>global environment</em></li>
 </ul>
-<p><strong>Here are the essential building blocks of a function</strong></p>
-<ul>
-<li><code>meaningful_name &lt;- function()</code></li>
-<li>arguments are defined within <code>()</code></li>
-<li>series of operations are inclused within <code>{}</code></li>
-<li><code>return()</code> result</li>
-</ul>
-<pre class="r"><code>meaningful_name &lt;- function(argument1, arugment2, ...) {
-  result &lt;- operation_using(argument1, argument2)
-  return(result)
-}</code></pre>
 </div>
 <div id="challenge-1-10-mins" class="section level3">
 <h3><span style="color: darkorange;">Challenge 1:</span> (10 mins)</h3>
@@ -185,5 +172,60 @@ F_to_C &lt;- function(temp){
 <p>Now let’s delete all the variables and functions we’ve created so far and “reset” our environment using <code>rm(list = ls())</code></p>
 <p>To source our set of three functions, we use the <code>source()</code> function locate our <code>my_func.R</code> script.</p>
 <pre class="r"><code>source(&quot;~/Desktop/my_func.R&quot;)</code></pre>
-<p>You now see three familiar functions in your <em>global environment</em></p>
+<p>Do you see three familiar functions in your <em>global environment</em>?</p>
+<hr />
+</div>
+<div id="concluding-thoughts" class="section level2">
+<h2>Concluding thoughts</h2>
+<ul>
+<li><strong>Congratulations!</strong> you are now a programmer, huzzah! 🥳 🎉</li>
+<li>Custom functions can be useful for repetitive operations</li>
+<li>Functions can be defined per script or called upon using <code>source()</code></li>
+</ul>
+<hr />
+</div>
+<div id="bonus-content-emojis" class="section level2">
+<h2>Bonus content: Emojis</h2>
+<p>While making this lesson, I learn to add Emojis into a R markdown document. I thought I’d share that here 😉:</p>
+<p>You’ll need to install the <a href="https://github.com/hadley/emo">Emo package</a> from GitHub developed by <a href="https://github.com/hadley/">Hadley Wickham</a></p>
+<pre class="r"><code>install.packages(&quot;devtools&quot;)
+devtools::install_github(&quot;hadley/emo&quot;)
+library(emo)</code></pre>
+<p>There are two ways to print emojis by using:
+* <code>ji_keywords</code>
+* <code>ji</code></p>
+<p>For example, <code>ji_keywords</code> evoke none unique emojis that call on similar category of emo(ji)s. For example <code>cats</code> have various unique cat expressions:</p>
+<pre class="r"><code>keywords &lt;- ji_keyword
+keywords$cat</code></pre>
+<pre><code>##  [1] &quot;smiley_cat&quot;      &quot;smile_cat&quot;       &quot;joy_cat&quot;         &quot;heart_eyes_cat&quot; 
+##  [5] &quot;smirk_cat&quot;       &quot;kissing_cat&quot;     &quot;scream_cat&quot;      &quot;crying_cat_face&quot;
+##  [9] &quot;pouting_cat&quot;     &quot;cat&quot;             &quot;cat2&quot;</code></pre>
+<pre><code>## 😺 
+## 😸 
+## 😹 
+## 😻 
+## 😼 
+## 😽 
+## 🙀 
+## 😿 
+## 😾 
+## 🐱 
+## 🐈</code></pre>
+<p>To specify which specific cat you want you’ll have to specify that cat you want using <code>ji()</code> like so:</p>
+<pre class="r"><code>ji(&quot;heart_eyes_cat&quot;)</code></pre>
+<pre><code>## 😻</code></pre>
+<p>You can find all the keywords on the <a href="https://github.com/hadley/emo">Emo package page</a> or see below for a sample:</p>
+<pre><code>## aeroplane :  🛩🛫🛬
+## airplane :  🛩🛫🛬
+## alien :  👽👾
+## alphabet :  🔤🔤
+## amusement park :  🎡🎢
+## anchor :  ⚓🔱
+## angel :  😇😇👼
+## angry :  😡😡😠👿💢💢🗯
+## antenna :  📡📶
+## apology :  🙇🙇‍♂️🙇‍♀️
+## apple :  🍎🍏</code></pre>
+<hr />
+<p><strong>Have suggestions or comments? <a href="https://yukatakemon.netlify.app/">Contact me</a></strong></p>
 </div>

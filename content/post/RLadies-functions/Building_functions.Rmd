@@ -8,7 +8,9 @@ categories:
   - functions
   - tutorial
   - RLadies
-tags: [RLadies, R, functions, tutorial]
+  - bonus_content
+  - emoji
+tags: [RLadies, R, functions, tutorial, bonus_content, emoji]
 subtitle: ''
 summary: ''
 authors: [YukaTakemon]
@@ -21,21 +23,17 @@ image:
 projects: []
 output:
   blogdown::html_page:
-    toc: true
+    toc: false
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE) 
+library(emo)
 ```
-
-<br>
 
 **Please note: This page is still under construction!**
 
-<br>
-
-
-This tutorial on "Building functions" was built for a [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) workshop, which adapted works from [The Carpentries](http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 
+* Pending code of conduct
 
 ## Objectives
 
@@ -44,6 +42,8 @@ This short tutorial will attempt to show:
 * What functions are and how are they useful
 * Why custom functions are necessary and when we might need them
 * How to build your own basic functions and how to source them
+
+This tutorial on "Building functions" was built for a [R-Ladies Vancouver](https://twitter.com/RLadiesVan?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor) workshop, which adapted works from [The Carpentries](http://swcarpentry.github.io/r-novice-gapminder/08-plot-ggplot2/index.html) licensed under [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/). 
 
 ***
 
@@ -69,7 +69,21 @@ Although base R package and packages on CRAN provide many useful functions, ther
 
 ## Defining functions
 
-Before we talk about details let's build our first function together and try using it. 
+**Here are the essential building blocks of a function**
+
+* `meaningful_name <- function()`
+* arguments are defined within `()`
+* series of operations are inclused within `{}`
+* `return()` result
+
+```{r, eval = FALSE}
+meaningful_name <- function(argument1, arugment2, ...) {
+  result <- operation_using(argument1, argument2)
+  return(result)
+}
+```
+
+Let's build our first function together and try it out. 
 
 ```{r}
 multiply <- function(a, b) {
@@ -87,20 +101,6 @@ What happened when you executed `multiply <- function(a, b){...}`?
 * No verbose
 * Addition of function to _global environment_
 * No intermediate variables produced in _global environment_
-
-**Here are the essential building blocks of a function**
-
-* `meaningful_name <- function()`
-* arguments are defined within `()`
-* series of operations are inclused within `{}`
-* `return()` result
-
-```{r, eval = FALSE}
-meaningful_name <- function(argument1, arugment2, ...) {
-  result <- operation_using(argument1, argument2)
-  return(result)
-}
-```
 
 ### <span style="color: darkorange;">Challenge 1:</span> (10 mins)
 Using the building blocks I showed you above, fill in the blanks below to build function that converts Fahrenheit to Kelvin. Here is the formula: `(°F − 32) × 5/9 + 273.15 = K`.
@@ -217,9 +217,64 @@ To source our set of three functions, we use the `source()` function locate our 
 source("~/Desktop/my_func.R")
 ```
 
-You now see three familiar functions in your _global environment_ 
+Do you see three familiar functions in your _global environment_?
+
+***
+
+## Concluding thoughts
+
+* **Congratulations!** you are now a programmer, huzzah! `r ji("partying_face")` `r ji("tada")` 
+* Custom functions can be useful for repetitive operations 
+* Functions can be defined per script or called upon using `source()`
+
+***
+
+## Bonus content: Emojis
+
+While making this lesson, I learn to add Emojis into a R markdown document. I thought I'd share that here `r ji("wink")`:
+
+You'll need to install the [Emo package](https://github.com/hadley/emo) from GitHub developed by [Hadley Wickham](https://github.com/hadley/)
+
+```{r, eval= F}
+install.packages("devtools")
+devtools::install_github("hadley/emo")
+library(emo)
+```
+
+There are two ways to print emojis by using:
+* `ji_keywords`
+* `ji`
+
+For example, `ji_keywords` evoke none unique emojis that call on similar category of emo(ji)s. For example `cats` have various unique cat expressions:
 
 
+```{r}
+keywords <- ji_keyword
+keywords$cat
+```
 
+```{r, echo = F}
+cat_cats <- NULL
+for(i in keywords$cat){
+  print(ji(i))
+}
+```
 
+To specify which specific cat you want you'll have to specify that cat you want using `ji()` like so: 
+
+```{r}
+ji("heart_eyes_cat")
+```
+
+You can find all the keywords on the [Emo package page](https://github.com/hadley/emo) or see below for a sample:
+
+```{r, echo = F}
+keywords <- keywords[lengths(keywords) > 1]
+emojis <- purrr::map_chr(keywords[20:30], function(x) paste0(emo::ji_name[x], collapse = ""))
+cat(paste(names(emojis), ": ", emojis, collapse = "\n"))
+```
+
+***
+
+**Have suggestions or comments? [Contact me](https://yukatakemon.netlify.app/)**
 
