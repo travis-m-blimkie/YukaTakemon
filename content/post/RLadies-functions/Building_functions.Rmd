@@ -30,9 +30,14 @@ knitr::opts_chunk$set(echo = TRUE)
 library(emo)
 ```
 
-**Please note: This page is still under construction!**
+**Workshop info**
 
-* Pending code of conduct
+* **When:** July 10th, 6pm (PST, Vancouver, BC)
+* **Where:** Online
+* **Requirements:** Participants must have a laptop or desktop with a Mac, Linux, or Windows operating system. (Tablets and Chromebooks are not advised.) Please have the latest version of [R](https://www.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/download/#download) downloaded and running (free!).
+* **Code of conduct:** Everyone participating in RLadies activities is required to conform to the [Code of Conduct](https://github.com/rladies/starter-kit/wiki/Code-of-Conduct)
+
+***
 
 ## Objectives
 
