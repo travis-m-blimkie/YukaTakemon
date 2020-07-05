@@ -224,6 +224,53 @@ source("~/Desktop/my_func.R")
 Do you see three familiar functions in your _global environment_?
 
 ***
+## "Real world" applications
+
+Gapminder Foundation is a non-profit venture registered in Stockholm, Sweden, that promotes sustainable global development and achievement of the United Nations Millennium Development Goals by increased use and understanding of statistics and other information about social, economic and environmental development at local, national and global levels. [[1]](https://www.gapminder.org/about-gapminder/our-mission/)
+
+We're going to use the `gapminder` data set to apply our knowledge of functions.We can download the data set using `install.packages("gapminder")` before calling the `library()` function. Let's see what we're working with:
+
+```{r}
+library(gapminder)
+
+str(gapminder)
+```
+Let's calculate the Gross Domestic Product of the data set.
+```{r}
+calcGDP <- function(data) {
+  gdp <- data$pop * data$gdpPercap
+  return(gdp)
+}
+```
+
+Let's make it more interesting! Let's add options to select `country` or `year`.
+
+```{r}
+calcGDP <- function(data, year=NULL, country=NULL) {
+  if(!is.null(year)) {
+    data <- data[data$year %in% year, ]
+  }
+  if (!is.null(country)) {
+    data <- data[data$country %in% country,]
+  }
+  gdp <- data$pop * data$gdpPercap
+
+  data$gdp <- gdp
+  return(data)
+}
+```
+
+Let's talk about what is happening in `year = NULL` and `country = NULL`
+
+### <span style="color: darkorange;">Challenge 4:</span> (10 mins)
+
+Test our your new `calcGDP` function to calculate the following:
+
+1. What was the gdp of Myanmar in 1977?
+2. What was the gdp of Togo in 1992?
+3. What was the gdp of Canada in 2000?
+
+***
 
 ## Concluding thoughts
 

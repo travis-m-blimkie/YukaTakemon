@@ -178,6 +178,50 @@ F_to_C &lt;- function(temp){
 <p>Do you see three familiar functions in your <em>global environment</em>?</p>
 <hr />
 </div>
+<div id="real-world-applications" class="section level2">
+<h2>“Real world” applications</h2>
+<p>Gapminder Foundation is a non-profit venture registered in Stockholm, Sweden, that promotes sustainable global development and achievement of the United Nations Millennium Development Goals by increased use and understanding of statistics and other information about social, economic and environmental development at local, national and global levels. <a href="https://www.gapminder.org/about-gapminder/our-mission/">[1]</a></p>
+<p>We’re going to use the <code>gapminder</code> data set to apply our knowledge of functions.We can download the data set using <code>install.packages("gapminder")</code> before calling the <code>library()</code> function. Let’s see what we’re working with:</p>
+<pre class="r"><code>library(gapminder)
+
+str(gapminder)</code></pre>
+<pre><code>## tibble [1,704 × 6] (S3: tbl_df/tbl/data.frame)
+##  $ country  : Factor w/ 142 levels &quot;Afghanistan&quot;,..: 1 1 1 1 1 1 1 1 1 1 ...
+##  $ continent: Factor w/ 5 levels &quot;Africa&quot;,&quot;Americas&quot;,..: 3 3 3 3 3 3 3 3 3 3 ...
+##  $ year     : int [1:1704] 1952 1957 1962 1967 1972 1977 1982 1987 1992 1997 ...
+##  $ lifeExp  : num [1:1704] 28.8 30.3 32 34 36.1 ...
+##  $ pop      : int [1:1704] 8425333 9240934 10267083 11537966 13079460 14880372 12881816 13867957 16317921 22227415 ...
+##  $ gdpPercap: num [1:1704] 779 821 853 836 740 ...</code></pre>
+<p>Let’s calculate the Gross Domestic Product of the data set.</p>
+<pre class="r"><code>calcGDP &lt;- function(data) {
+  gdp &lt;- data$pop * data$gdpPercap
+  return(gdp)
+}</code></pre>
+<p>Let’s make it more interesting! Let’s add options to select <code>country</code> or <code>year</code>.</p>
+<pre class="r"><code>calcGDP &lt;- function(data, year=NULL, country=NULL) {
+  if(!is.null(year)) {
+    data &lt;- data[data$year %in% year, ]
+  }
+  if (!is.null(country)) {
+    data &lt;- data[data$country %in% country,]
+  }
+  gdp &lt;- data$pop * data$gdpPercap
+
+  data$gdp &lt;- gdp
+  return(data)
+}</code></pre>
+<p>Let’s talk about what is happening in <code>year = NULL</code> and <code>country = NULL</code></p>
+<div id="challenge-4-10-mins" class="section level3">
+<h3><span style="color: darkorange;">Challenge 4:</span> (10 mins)</h3>
+<p>Test our your new <code>calcGDP</code> function to calculate the following:</p>
+<ol style="list-style-type: decimal">
+<li>What was the gdp of Myanmar in 1977?</li>
+<li>What was the gdp of Togo in 1992?</li>
+<li>What was the gdp of Canada in 2000?</li>
+</ol>
+<hr />
+</div>
+</div>
 <div id="concluding-thoughts" class="section level2">
 <h2>Concluding thoughts</h2>
 <ul>
