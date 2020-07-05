@@ -77,7 +77,7 @@ Although base R package and packages on CRAN provide many useful functions, ther
 
 * `meaningful_name <- function()`
 * arguments are defined within `()`
-* series of operations are inclused within `{}`
+* series of operations are included within `{}`
 * `return()` result
 
 ```{r, eval = FALSE}
