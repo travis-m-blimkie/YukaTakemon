@@ -1,0 +1,141 @@
+---
+title: "Introduction to R and Some Best Practices Suggestions"
+author: "Amy Lee (@minisciencegirl) & Travis Blimkie"
+slug: DataJam-2020-intro
+categories:
+  - R
+  - DataJam-2020
+  - tutorial
+tags: [R, DataJam-2020, tutorial]
+subtitle: ''
+summary: ''
+authors: [Amy Lee (@minisciencegirl) & Travis Blimkie]
+date: "2020-08-29 17:18:45"
+featured: no
+image:
+  caption: ''
+  focal_point: ''
+  preview_only: no
+projects: []
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="what-are-r-and-rstudio" class="section level2">
+<h2>What are R and RStudio?</h2>
+<p>For this workshop, we will be using R via RStudio.</p>
+<p>You can think of R like a car’s engine, while RStudio is like a car’s dashboard.</p>
+<ul>
+<li>R is the programming language that runs computations</li>
+<li>RStudio is an integrated development environment (IDE) that provides an
+interface by adding convenient features and tools.</li>
+</ul>
+<p><img src="images/R_vs_RStudio_v1.png" /></p>
+<p>So what this means is that, just as we don’t drive a car by interacting directly
+with the engine but rather by interacting with the car’s dashboard, we won’t be
+using R directly.</p>
+<p>Instead, we will be using the RStudio’s interface.</p>
+<p><img src="images/R_vs_RStudio_v2.png" /></p>
+<p>After you open RStudio, you should see the following 3 panels:</p>
+<ul>
+<li>console,</li>
+<li>files,</li>
+<li>and environment.</li>
+</ul>
+<p><img src="images/RStudio_panels.png" /></p>
+</div>
+<div id="what-are-r-packages" class="section level2">
+<h2>What are R packages?</h2>
+<p>R packages extend the functionality of R by providing additional functions, data
+and documentation.</p>
+<ul>
+<li>Think of R packages like apps that you can download onto a mobile phone</li>
+<li>You can get R packages from CRAN</li>
+<li>Or bioinformatics related R packages from bioconductor</li>
+</ul>
+<p><img src="images/packages.png" /></p>
+<p>So let’s continue with this analogy: Let’s say you’ve purchased a new phone
+(brand new R/RStudio install) and you want to take a photo (do some data
+analysis) and share it with your friends and family. So you need to:</p>
+<ol style="list-style-type: decimal">
+<li>Install the app.</li>
+<li>Open the app.</li>
+</ol>
+<p>This process is very similar when you are using an R package. You need to:</p>
+<ol style="list-style-type: decimal">
+<li>Install the pacakge: Most packages are not installed by default when you
+install R and RStudio. You will only need to install it again when you need to
+update it to a newer version.</li>
+</ol>
+<pre class="r"><code>install.packages(&quot;tidyverse&quot;)</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>“Load” or open the package: Packages are not loaded by default when you start
+RStudio on your computer. So you need to “load” each package you want to use
+every time you start RStudio.</li>
+</ol>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<p>See <a href="https://moderndive.com/1-getting-started.html">ModernDive Chapter 1</a> for
+further reading.</p>
+</div>
+<div id="workspace-and-.rdata" class="section level2">
+<h2>Workspace and .RData</h2>
+<p>One day you will need to quit R, go do something else and return to your
+analysis later.</p>
+<p>One day you will be running multiple analyses in R and you want to keep them
+separate.</p>
+<p>One day you will need to bring data from the outside world into R and present
+results and figures from R back out to the world.</p>
+<p>So how do you know which parts of your analysis is “real” and where does your
+analysis “live”?</p>
+<div id="where-am-i-working-directory" class="section level3">
+<h3>Where am I? (Working Directory)</h3>
+<p>Working directory is where R will look, by default, for files you ask it to load
+or to save.</p>
+<p>You can explicitly check your working directory with:</p>
+<pre class="r"><code>getwd()</code></pre>
+<pre><code>[1] &quot;/Users/yukatakemon/GitHub/YukaTakemon/content/post/DataJam-2020&quot;</code></pre>
+<p>It is also displayed at the top of the RStudio console</p>
+</div>
+<div id="what-if-i-dont-like-where-my-current-working-directory-is" class="section level3">
+<h3>What if I don’t like where my current working directory is?</h3>
+<p><img src="images/No_setwd_0.png" /></p>
+<p>DO NOT USE <code>setwd</code> unless you want Jenny Bryan to set your computer on fire!</p>
+<p><img src="images/No_setwd_1.png" /></p>
+<p><img src="images/No_setwd_2.png" /></p>
+<p>So what’s wrong with:</p>
+<pre class="r"><code>setwd(&quot;/Users/amy/fuzzy_alpaca/cute_animals/foofy/data&quot;)
+df &lt;- read.delim(&quot;raw_foofy_data.csv&quot;)
+p &lt;- ggplot(df, aes(x, y)) + geom_point()
+ggsave(&quot;../figs/foofy_scatterplot.png&quot;)</code></pre>
+<p>The chance of the <code>setwd()</code> command having the desiered effect - making the file
+paths work - for anyone besides its author is 0%. It might not even work for the
+author a year or two from now. So essentially your data analysis project is not
+self-contained and protable, which makes recreating the plot impossible.</p>
+<p>Read more here: <a href="https://www.tidyverse.org/articles/2017/12/workflow-vs-script/" class="uri">https://www.tidyverse.org/articles/2017/12/workflow-vs-script/</a></p>
+</div>
+<div id="suggestions-on-how-to-organize-your-data-analysis" class="section level3">
+<h3>Suggestions on how to organize your data analysis:</h3>
+<p>Typically, I organize each data analysis into a project using RStudio Project. I
+tend to have a directory each for:</p>
+<ul>
+<li>raw data</li>
+<li>processed data</li>
+<li>output or figures</li>
+<li>scripts</li>
+</ul>
+<p><br></p>
+</div>
+<div id="next-were-going-to" class="section level3">
+<h3>Next, we’re going to:</h3>
+<ul>
+<li>Open up RStudio</li>
+<li>Create our first project</li>
+<li>Create and save a script to save our code</li>
+<li>Go over some basic operations and syntax in R</li>
+</ul>
+<p><br></p>
+</div>
+</div>
