@@ -12,10 +12,6 @@ summary: ''
 authors: [Amy Lee (@minisciencegirl) & Travis Blimkie]
 date: "`r format(Sys.time())`"
 featured: no
-image:
-  caption: ''
-  focal_point: ''
-  preview_only: no
 projects: []
 output:
   blogdown::html_page:
