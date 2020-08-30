@@ -1,5 +1,5 @@
 ---
-title: "Intro to dplyr"
+title: "DataJam 2020 Lesson 2 : Intro to dplyr"
 author: "Yuka Takemon & Travis Blimkie"
 slug: DataJam-2020-intro
 categories:
@@ -10,7 +10,7 @@ tags: [R, DataJam-2020, tutorial]
 subtitle: ''
 summary: ''
 authors: [Yuka Takemon & Travis Blimkie]
-date: "2020-08-29 17:39:23"
+date: "2020-08-30 13:34:59"
 featured: no
 image:
   caption: ''
@@ -82,7 +82,7 @@ or observations.</p>
 <h2>Choose Columns: select</h2>
 <p>The first function we’ll be using is <code>select()</code>. This function let’s us pick
 columns from our data frame, based on name (e.g. year) or by index (e.g. 3).</p>
-<p><img src="images/select_image.png" /></p>
+<p><img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/select_image.png?raw=true"/></p>
 <p>Let’s try using <code>select()</code> to pick out a few columns: “country”, “year”,
 “lifeExp”, and “pop”. We’ll be assigning these columns to a new data frame,
 <code>gapminder_select</code>. Then we’ll use <code>head()</code> to see if it worked.</p>
@@ -168,7 +168,7 @@ country is Canada. This can also be applied to numerical values, such as the
 year being equal to 1967, or life expectancy greater than 30.</p>
 <p>NOTE: In R, equality (e.g. country is Canada, year is 1967) is done using a
 double equals sign (<code>==</code>).</p>
-<p><img src="images/filter_image.png" /></p>
+<p><img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/filter_image.png?raw=true"/></p>
 <p>Let’s go through a couple examples.</p>
 <pre class="r"><code># Filter rows where country is Canada
 gapminder_canada &lt;- gapminder %&gt;% filter(country == &quot;Canada&quot;)
@@ -252,8 +252,8 @@ used to send the output of one function into another function. This allows us to
 chain together multiple commmands, without the need for intermediate variables.</p>
 <p>Let’s take a look at this in an example.</p>
 <pre class="r"><code># select() the five columns, and filter() for Canada
-gapminder_multi &lt;- gapminder %&gt;% 
-    select(country, year, lifeExp, pop, gdpPercap) %&gt;% 
+gapminder_multi &lt;- gapminder %&gt;%
+    select(country, year, lifeExp, pop, gdpPercap) %&gt;%
     filter(country == &quot;Canada&quot;)
 
 head(gapminder_multi)</code></pre>
@@ -271,9 +271,9 @@ head(gapminder_multi)</code></pre>
 earlier, linking multiple functions into a single command. Be sure to indent
 (<code>TAB</code> key) when moving to a new line after a pipe.</p>
 <pre class="r"><code># select() the four columns, filter() for Canada, and calculate GDP in billions
-gapminder_multi_2 &lt;- gapminder %&gt;% 
-    select(country, year, lifeExp, pop, gdpPercap) %&gt;% 
-    filter(country == &quot;Canada&quot;) %&gt;% 
+gapminder_multi_2 &lt;- gapminder %&gt;%
+    select(country, year, lifeExp, pop, gdpPercap) %&gt;%
+    filter(country == &quot;Canada&quot;) %&gt;%
     mutate(gdp_billion = gdpPercap * pop / 10^9)
 
 head(gapminder_multi_2)</code></pre>
@@ -293,10 +293,10 @@ head(gapminder_multi_2)</code></pre>
 <p>These functions allow us to work on our data in specific groups. For example, we
 can use <code>group_by()</code> to group observations by country, then calculate the
 average life expectancy for each country.</p>
-<p><img src="images/groupby_summarize_image.png" /></p>
+<p><img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/groupby_summarize_image.png?raw=true"/></p>
 <pre class="r"><code># group_by() country, calculate average life expectancy
-gapminder_grp &lt;- gapminder %&gt;% 
-group_by(country) %&gt;% 
+gapminder_grp &lt;- gapminder %&gt;%
+group_by(country) %&gt;%
 summarise(mean(lifeExp))
 
 head(gapminder_grp)</code></pre>
@@ -313,8 +313,8 @@ head(gapminder_grp)</code></pre>
 <p>Let’s do another example, again grouping by country. This time, we’ll calculate
 the mean and standard deviation of the GDP per capita. We’ll also specify the
 column names inside of the <code>summarise()</code> command.</p>
-<pre class="r"><code>gapminder_mean_sd &lt;- gapminder %&gt;% 
-    group_by(country) %&gt;% 
+<pre class="r"><code>gapminder_mean_sd &lt;- gapminder %&gt;%
+    group_by(country) %&gt;%
     summarise(mean_gdp = mean(gdpPercap), sd_gdp = sd(gdpPercap))
 
 head(gapminder_mean_sd)</code></pre>
@@ -338,7 +338,7 @@ genes. For example the gene ID “ENSG00000012048” corresponds to the gene BRC
 Now let’s say you want to map between the two tables using the gene ID, to
 create a single table with ID-Expression-Name for each gene. That’s what
 <code>left_join()</code> is for!</p>
-<p><img src="images/leftjoin_image.png" /></p>
+<p><img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/leftjoin_image.png?raw=true"/></p>
 <p>This function takes one data frame “x” and using a specified column, looks for
 matching entries in “y”. Note that the output data frame will contain all rows
 and columns from “x”, as well as all columns from “y”, but only matching rows
@@ -385,11 +385,11 @@ country, but only considering data from 1980 and onwards. We can accomplish this
 all in one step as follows.</p>
 <pre class="r"><code># select() columns, filter() by year, calculate GDP in billions, mean() and sd()
 # of GDP in billions
-gapminder_final &lt;- gapminder %&gt;% 
-    select(country, year, pop, gdpPercap) %&gt;% 
-    filter(year &gt;= 1980) %&gt;% 
-    mutate(gdp_billion = gdpPercap * pop / 10^9) %&gt;% 
-    group_by(country) %&gt;% 
+gapminder_final &lt;- gapminder %&gt;%
+    select(country, year, pop, gdpPercap) %&gt;%
+    filter(year &gt;= 1980) %&gt;%
+    mutate(gdp_billion = gdpPercap * pop / 10^9) %&gt;%
+    group_by(country) %&gt;%
     summarise(mean_gdpBillion = mean(gdp_billion), sd_gdpBillion = sd(gdp_billion))
 
 head(gapminder_final)</code></pre>

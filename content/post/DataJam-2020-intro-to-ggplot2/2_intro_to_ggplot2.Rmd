@@ -1,5 +1,5 @@
 ---
-title: "Intro to ggplot2" 
+title: "DataJam 2020 Lesson 3 : Intro to ggplot2" 
 author: "Travis Blimkie"
 slug: DataJam-2020-intro
 categories:
@@ -117,7 +117,7 @@ Modify the example so that the figure shows how life expectancy has
 changed over time:
 ```{r, eval=FALSE}
 # Previous example:
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()
 ```
 Hint: the gapminder dataset has a column called "year", which should appear
@@ -126,7 +126,7 @@ on the x-axis.
 ### Solution to Challenge 1
 Here is one possible solution:
 ```{r}
-ggplot(data = gapminder, aes(x = year, y = lifeExp)) + 
+ggplot(data = gapminder, aes(x = year, y = lifeExp)) +
   geom_point()
 ```
 
@@ -171,7 +171,7 @@ simply add another layer to the plot:
 
 ```{r}
 ggplot(gapminder, aes(year, lifeExp, by = country, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   geom_point()
 ```
 
@@ -183,7 +183,7 @@ demonstration:
 
 ```{r}
 ggplot(gapminder, aes(year, lifeExp, by = country)) +
-  geom_line(aes(colour = continent)) + 
+  geom_line(aes(colour = continent)) +
   geom_point()
 ```
 
@@ -215,7 +215,7 @@ Switch the order of the point and line layers from the previous example. What
 happened?
 ```{r}
 ggplot(gapminder, aes(year, lifeExp, by = country)) +
-  geom_point() + 
+  geom_point() +
   geom_line(aes(colour = continent))
 ```
 
@@ -245,7 +245,7 @@ a large amount of data which is very clustered.
 
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point(alpha = 0.5) + 
+  geom_point(alpha = 0.5) +
   scale_x_log10()
 ```
 
@@ -268,8 +268,8 @@ We can fit a simple relationship to the data by adding another layer,
 
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point() + 
-  scale_x_log10() + 
+  geom_point() +
+  scale_x_log10() +
   geom_smooth(method = "lm")
 ```
 
@@ -280,8 +280,8 @@ We can make the line thicker by *setting* the **size** aesthetic in the
 
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point() + 
-  scale_x_log10() + 
+  geom_point() +
+  scale_x_log10() +
   geom_smooth(method = "lm", size = 1.5)
 ```
 
@@ -299,7 +299,7 @@ example. Hint: do not use the `aes` function.
 ### Solution to challenge 4a
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point(size = 3, colour = "orange") + 
+  geom_point(size = 3, colour = "orange") +
   scale_x_log10() +
   geom_smooth(method = "lm", size = 1.5)
 ```
@@ -317,7 +317,7 @@ coloured by continent with new trendlines.
 Hint: The colour argument can be used inside the aesthetic.
 ```{r}
 ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
-  geom_point(size = 2, alpha = 0.5) + 
+  geom_point(size = 2, alpha = 0.5) +
   scale_x_log10() +
   geom_smooth(method = "lm", size = 1.5)
 ```
@@ -332,11 +332,11 @@ of the data to make it easier to work with. The `%in%` operator just means that
 country must be equal to one of the four specified countries.
 
 ```{r}
-gapminder_small <- gapminder %>% 
+gapminder_small <- gapminder %>%
   filter(country %in% c("Canada", "United States", "France", "Australia"))
 
 ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   facet_wrap(~country)
 ```
 
@@ -361,18 +361,18 @@ title is set using `colour = "Continent"`, while the title of a fill legend
 would be set using `fill = "MyTitle"`.
 
 ```{r}
-gapminder_small <- gapminder %>% 
+gapminder_small <- gapminder %>%
   filter(country %in% c("Canada", "United States", "France", "Australia"))
 
 ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   facet_wrap(~country) +
   labs(x = "Year", y = "Life expectancy", title = "Figure 1", colour = "Continent") +
   theme_bw() +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
 ```
 
-<br>
+<br> 
 
 ## Exporting the plot
 The `ggsave()` function allows you to export a plot created with ggplot. You can
@@ -385,13 +385,13 @@ working directory.)
 
 ```{r}
 lifeExp_plot <- ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   facet_wrap(~country) +
   labs(x = "Year", y = "Life expectancy", title = "Figure 1", colour = "Continent") +
   theme_bw() +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
 
-ggsave(plot = lifeExp_plot, filename = "images/lifeExp.png", units = "cm", width = 12, height = 10, dpi = 300)
+ggsave(plot = lifeExp_plot, filename = "lifeExp.png", units = "cm", width = 12, height = 10, dpi = 300)
 ```
 
 <br>
@@ -427,8 +427,8 @@ Advanced:
 ### Solution to Challenge 5
 ```{r}
 ggplot(gapminder, aes(gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.6) + 
-  facet_wrap(~year, scales = "free_y") + 
+  geom_density(alpha = 0.6) +
+  facet_wrap(~year, scales = "free_y") +
   scale_x_log10()
 ```
 

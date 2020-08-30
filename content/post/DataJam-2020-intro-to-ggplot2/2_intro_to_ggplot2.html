@@ -1,5 +1,5 @@
 ---
-title: "Intro to ggplot2" 
+title: "DataJam 2020 Lesson 3 : Intro to ggplot2" 
 author: "Travis Blimkie"
 slug: DataJam-2020-intro
 categories:
@@ -10,7 +10,7 @@ tags: [R, DataJam-2020, tutorial]
 subtitle: ''
 summary: ''
 authors: [Travis Blimkie]
-date: "2020-08-29 17:40:18"
+date: "2020-08-30 13:39:31"
 featured: no
 image:
   caption: ''
@@ -90,7 +90,7 @@ tells <code>ggplot</code> we want to visually represent the relationship between
 <p>Modify the example so that the figure shows how life expectancy has
 changed over time:</p>
 <pre class="r"><code># Previous example:
-ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) + 
+ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()</code></pre>
 <p>Hint: the gapminder dataset has a column called “year”, which should appear
 on the x-axis.</p>
@@ -98,7 +98,7 @@ on the x-axis.</p>
 <div id="solution-to-challenge-1" class="section level3">
 <h3>Solution to Challenge 1</h3>
 <p>Here is one possible solution:</p>
-<pre class="r"><code>ggplot(data = gapminder, aes(x = year, y = lifeExp)) + 
+<pre class="r"><code>ggplot(data = gapminder, aes(x = year, y = lifeExp)) +
   geom_point()</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p><br></p>
@@ -137,7 +137,7 @@ country.</p>
 <p>But what if we want to visualize both lines and points on the plot? We can
 simply add another layer to the plot:</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   geom_point()</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p><br></p>
@@ -145,7 +145,7 @@ simply add another layer to the plot:</p>
 this example, the points have been drawn <em>on top of</em> the lines. Here’s a
 demonstration:</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country)) +
-  geom_line(aes(colour = continent)) + 
+  geom_line(aes(colour = continent)) +
   geom_point()</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><br></p>
@@ -173,7 +173,7 @@ happened?</p>
 <p>Switch the order of the point and line layers from the previous example. What
 happened?</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country)) +
-  geom_point() + 
+  geom_point() +
   geom_line(aes(colour = continent))</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br></p>
@@ -196,7 +196,7 @@ visual values of an aesthetic. We can also modify the transparency of the
 points, using the <em>alpha</em> function, which is especially helpful when you have
 a large amount of data which is very clustered.</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point(alpha = 0.5) + 
+  geom_point(alpha = 0.5) +
   scale_x_log10()</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p><br></p>
@@ -213,16 +213,16 @@ x-axis.</p>
 <p>We can fit a simple relationship to the data by adding another layer,
 <code>geom_smooth</code>:</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point() + 
-  scale_x_log10() + 
+  geom_point() +
+  scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;)</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p><br></p>
 <p>We can make the line thicker by <em>setting</em> the <strong>size</strong> aesthetic in the
 <code>geom_smooth</code> layer:</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point() + 
-  scale_x_log10() + 
+  geom_point() +
+  scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;, size = 1.5)</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><br></p>
@@ -239,7 +239,7 @@ example. Hint: do not use the <code>aes</code> function.</p>
 <div id="solution-to-challenge-4a" class="section level3">
 <h3>Solution to challenge 4a</h3>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
-  geom_point(size = 3, colour = &quot;orange&quot;) + 
+  geom_point(size = 3, colour = &quot;orange&quot;) +
   scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;, size = 1.5)</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
@@ -257,7 +257,7 @@ trendlines. Hint: The colour argument can be used inside the aesthetic.</p>
 coloured by continent with new trendlines.
 Hint: The colour argument can be used inside the aesthetic.</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
-  geom_point(size = 2, alpha = 0.5) + 
+  geom_point(size = 2, alpha = 0.5) +
   scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;, size = 1.5)</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
@@ -271,11 +271,11 @@ countries in one plot. Alternatively, we can split this out over multiple panels
 by adding a layer of <strong>facet</strong> panels. Here we will first make a smaller version
 of the data to make it easier to work with. The <code>%in%</code> operator just means that
 country must be equal to one of the four specified countries.</p>
-<pre class="r"><code>gapminder_small &lt;- gapminder %&gt;% 
+<pre class="r"><code>gapminder_small &lt;- gapminder %&gt;%
   filter(country %in% c(&quot;Canada&quot;, &quot;United States&quot;, &quot;France&quot;, &quot;Australia&quot;))
 
 ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   facet_wrap(~country)</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p><br></p>
@@ -295,11 +295,11 @@ and any legend can be set using the <code>labs</code> function. Legend titles ar
 the same names we used in the <code>aes</code> specification. Thus below the colour legend
 title is set using <code>colour = "Continent"</code>, while the title of a fill legend
 would be set using <code>fill = "MyTitle"</code>.</p>
-<pre class="r"><code>gapminder_small &lt;- gapminder %&gt;% 
+<pre class="r"><code>gapminder_small &lt;- gapminder %&gt;%
   filter(country %in% c(&quot;Canada&quot;, &quot;United States&quot;, &quot;France&quot;, &quot;Australia&quot;))
 
 ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   facet_wrap(~country) +
   labs(x = &quot;Year&quot;, y = &quot;Life expectancy&quot;, title = &quot;Figure 1&quot;, colour = &quot;Continent&quot;) +
   theme_bw() +
@@ -317,13 +317,13 @@ variable <code>lifeExp_plot</code>, then tell <code>ggsave</code> to save that p
 a directory called <code>results</code>. (Make sure you have a <code>results/</code> folder in your
 working directory.)</p>
 <pre class="r"><code>lifeExp_plot &lt;- ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
-  geom_line() + 
+  geom_line() +
   facet_wrap(~country) +
   labs(x = &quot;Year&quot;, y = &quot;Life expectancy&quot;, title = &quot;Figure 1&quot;, colour = &quot;Continent&quot;) +
   theme_bw() +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())
 
-ggsave(plot = lifeExp_plot, filename = &quot;images/lifeExp.png&quot;, units = &quot;cm&quot;, width = 12, height = 10, dpi = 300)</code></pre>
+ggsave(plot = lifeExp_plot, filename = &quot;lifeExp.png&quot;, units = &quot;cm&quot;, width = 12, height = 10, dpi = 300)</code></pre>
 <p><br></p>
 <p>There are two nice things about <code>ggsave</code>. First, it defaults to the last plot,
 so if you omit the <code>plot</code> argument it will automatically save the last plot you
@@ -355,8 +355,8 @@ a relevant question and answer on Stack Overflow with reusable code to modify!</
 <div id="solution-to-challenge-5" class="section level3">
 <h3>Solution to Challenge 5</h3>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, fill = continent)) +
-  geom_density(alpha = 0.6) + 
-  facet_wrap(~year, scales = &quot;free_y&quot;) + 
+  geom_density(alpha = 0.6) +
+  facet_wrap(~year, scales = &quot;free_y&quot;) +
   scale_x_log10()</code></pre>
 <p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p><br></p>
