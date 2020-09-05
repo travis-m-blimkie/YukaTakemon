@@ -33,7 +33,7 @@ knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "
 * **When:** September 11th, 5:30pm (PST, Vancouver, BC)
 * **Where:** Online
 * **Requirements:** Participants must have a laptop or desktop with a Mac, Linux, or Windows operating system. (Tablets and Chromebooks are not advised.) Please have the latest version of [R](https://www.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/download/#download) downloaded and running (free!).
-* **Code of conduct:** Everyone participating in the Vancouver DataJam activities are required to conform to the [Code of Conduct](https://github.com/rladies/starter-kit/wiki/Code-of-Conduct)
+* **Code of conduct:** Everyone participating in the Vancouver DataJam activities are required to conform to the [Code of Conduct](https://drive.google.com/file/d/1AweOzN_CrcXbn0theuy7PovpRgLfmrBI/view?usp=sharing)
 
 ***
 
@@ -295,73 +295,59 @@ summarise(LifeExp_ang = max(lifeExp),
           LifeExp_ang = min(lifeExp),
           LifeExp_ang = mean(lifeExp))
 ```
+>**Extra:** `group_by()` can be combined with `tally()`to count all the rows corresponding to that group.
+>```
+>gapminder %>% group_by(continent, year) %>% tally()
+>```
 
 ## Combining tables with _join()
 
 Let's say you have two data frames that you want to combine. Both data frames contain a column with unique identifiers, but each data frame may contain different columns of information. That's where join functions come in!
 
+There are a variety of ways data can be joined. Here are a few common ones you may come across:
+<img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/Common_joins-01.png?raw=true"/>
 
-<img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/Common_joins-01.png?raw=true"/> 
+### left_join()
+
+The `left_join()` function takes one data frame on the "left" and using a specified column, looks for matching entries on the "right". Note that the output data frame will contain all rows
+and columns from the left dataframe, as well as all columns from right, but only matching rows from.
 
 <img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/leftjoin_image.png?raw=true"/>
 
-This function takes one data frame "x" and using a specified column, looks for
-matching entries in "y". Note that the output data frame will contain all rows
-and columns from "x", as well as all columns from "y", but only matching rows
-from "y".
-
 First let's load some simple example data to play with:
 ```{r left_join_ex}
-data("band_members")
-data("band_instruments")
+band_members
 
-head(band_members)
-head(band_instruments)
+band_instruments
 ```
+Now we can use `left_join()` to combine the two tables, based on matching values in a specified column. The syntax is as follows:
 
-Now we can use `left_join()` to combine the two tables, based on matching values
-in a specified column. The syntax is as follow:
 ```{r left_join}
-
-left_join(band_members, band_instruments, by = "name")
-
+left_join(band_members, band_instruments)
 ```
+### right_join()
 
-<br>
+`right_join()` works exactly the same with and you can also specify which column you wish to join by to get the same results
 
-**Extra:** Note that you can have different column names in each of your data
-frames, and still join the tables together. The syntax for this is:
+```{r right_join}
+right_join(band_members, band_instruments, by = "name")
 ```
-left_join(x, y, by = c("columnX" = "columnY"))
-```
+>**Extra:** Note that you can have different column names in each of your data frames, and still join the tables together. The syntax for this is:
+>```
+>left_join(x, y, by = c("columnX" = "columnY"))
+>```
 
-<br>
+***
 
-## Tying it all together
+### <span style="color: darkorange;">Challenge 4: Tying it all together</span> (10 mins)
 
-Now let's use all the commands we've covered and combine them with pipes into a
-single statement.
+Now let's use all the commands we've covered and combine them with pipes into a single statement.
 
-Let's say we want calculate the mean and SD of the GDP (in billions) for each
-country, but only considering data from 1980 and onwards. We can accomplish this
-all in one step as follows.
-
-```{r}
-# select() columns, filter() by year, calculate GDP in billions, mean() and sd()
-# of GDP in billions
-gapminder_final <- gapminder %>%
-    select(country, year, pop, gdpPercap) %>%
-    filter(year >= 1980) %>%
-    mutate(gdp_billion = gdpPercap * pop / 10^9) %>%
-    group_by(country) %>%
-    summarise(mean_gdpBillion = mean(gdp_billion), sd_gdpBillion = sd(gdp_billion))
-
-head(gapminder_final)
-```
+Calculate the mean and standard deviation (`sd()`) of the total GDP for all counties in Asia from 1990 and onwards. 
 
 *** 
 
-## Challenge answers 
+## Challenge answers
 
 **Challenge 1** : B, E, D, C, A
 
@@ -378,8 +364,19 @@ glimpse(result)
 **Challenge 3** :
 
 ```{r, eval= F}
-gapminder_multi_2 <- gapminder %>%
+gapminder %>%
     select(-continent) %>%
     filter(country == "Canada") %>%
     mutate(gdp_total = gdpPercap * pop)
+```
+
+**Challenge 4** :
+
+```{r}
+gapminder %>%
+    filter(continent == "Asia", year >= 1990) %>%
+    mutate(totalGDP = gdpPercap * pop) %>%
+    group_by(country) %>%
+    summarise(totalGDP_mean = mean(totalGDP), 
+              totalGDP_sd = sd(totalGDP))
 ```

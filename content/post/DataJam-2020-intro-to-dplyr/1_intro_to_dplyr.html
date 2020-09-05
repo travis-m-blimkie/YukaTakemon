@@ -10,7 +10,7 @@ tags: [R, DataJam-2020, tutorial]
 subtitle: ''
 summary: ''
 authors: [Yuka Takemon & Travis Blimkie]
-date: "2020-09-04 17:35:35"
+date: "2020-09-04 18:43:36"
 featured: no
 image:
   caption: ''
@@ -30,7 +30,7 @@ output:
 <li><strong>When:</strong> September 11th, 5:30pm (PST, Vancouver, BC)</li>
 <li><strong>Where:</strong> Online</li>
 <li><strong>Requirements:</strong> Participants must have a laptop or desktop with a Mac, Linux, or Windows operating system. (Tablets and Chromebooks are not advised.) Please have the latest version of <a href="https://www.r-project.org/">R</a> and <a href="https://rstudio.com/products/rstudio/download/#download">RStudio</a> downloaded and running (free!).</li>
-<li><strong>Code of conduct:</strong> Everyone participating in the Vancouver DataJam activities are required to conform to the <a href="https://github.com/rladies/starter-kit/wiki/Code-of-Conduct">Code of Conduct</a></li>
+<li><strong>Code of conduct:</strong> Everyone participating in the Vancouver DataJam activities are required to conform to the <a href="https://drive.google.com/file/d/1AweOzN_CrcXbn0theuy7PovpRgLfmrBI/view?usp=sharing">Code of Conduct</a></li>
 </ul>
 <hr />
 <blockquote>
@@ -302,76 +302,67 @@ summarise(LifeExp_ang = max(lifeExp),
  9 Bangladesh         49.8
 10 Belgium            73.6
 # … with 132 more rows</code></pre>
+<blockquote>
+<p><strong>Extra:</strong> <code>group_by()</code> can be combined with <code>tally()</code>to count all the rows corresponding to that group.</p>
+<pre><code>gapminder %&gt;% group_by(continent, year) %&gt;% tally()</code></pre>
+</blockquote>
 </div>
 <div id="combining-tables-with-_join" class="section level2">
 <h2>Combining tables with _join()</h2>
 <p>Let’s say you have two data frames that you want to combine. Both data frames contain a column with unique identifiers, but each data frame may contain different columns of information. That’s where join functions come in!</p>
-<p><img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/Common_joins-01.png?raw=true"/></p>
+<p>There are a variety of ways data can be joined. Here are a few common ones you may come across:
+<img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/Common_joins-01.png?raw=true"/></p>
+<div id="left_join" class="section level3">
+<h3>left_join()</h3>
+<p>The <code>left_join()</code> function takes one data frame on the “left” and using a specified column, looks for matching entries on the “right”. Note that the output data frame will contain all rows
+and columns from the left dataframe, as well as all columns from right, but only matching rows from.</p>
 <p><img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/leftjoin_image.png?raw=true"/></p>
-<p>This function takes one data frame “x” and using a specified column, looks for
-matching entries in “y”. Note that the output data frame will contain all rows
-and columns from “x”, as well as all columns from “y”, but only matching rows
-from “y”.</p>
 <p>First let’s load some simple example data to play with:</p>
-<pre class="r"><code>data(&quot;band_members&quot;)
-data(&quot;band_instruments&quot;)
-
-head(band_members)</code></pre>
+<pre class="r"><code>band_members</code></pre>
 <pre><code># A tibble: 3 x 2
   name  band   
   &lt;chr&gt; &lt;chr&gt;  
 1 Mick  Stones 
 2 John  Beatles
 3 Paul  Beatles</code></pre>
-<pre class="r"><code>head(band_instruments)</code></pre>
+<pre class="r"><code>band_instruments</code></pre>
 <pre><code># A tibble: 3 x 2
   name  plays 
   &lt;chr&gt; &lt;chr&gt; 
 1 John  guitar
 2 Paul  bass  
 3 Keith guitar</code></pre>
-<p>Now we can use <code>left_join()</code> to combine the two tables, based on matching values
-in a specified column. The syntax is as follow:</p>
-<pre class="r"><code>left_join(band_members, band_instruments, by = &quot;name&quot;)</code></pre>
+<p>Now we can use <code>left_join()</code> to combine the two tables, based on matching values in a specified column. The syntax is as follows:</p>
+<pre class="r"><code>left_join(band_members, band_instruments)</code></pre>
 <pre><code># A tibble: 3 x 3
   name  band    plays 
   &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
 1 Mick  Stones  &lt;NA&gt;  
 2 John  Beatles guitar
 3 Paul  Beatles bass  </code></pre>
-<p><br></p>
-<p><strong>Extra:</strong> Note that you can have different column names in each of your data
-frames, and still join the tables together. The syntax for this is:</p>
-<pre><code>left_join(x, y, by = c(&quot;columnX&quot; = &quot;columnY&quot;))</code></pre>
-<p><br></p>
 </div>
-<div id="tying-it-all-together" class="section level2">
-<h2>Tying it all together</h2>
-<p>Now let’s use all the commands we’ve covered and combine them with pipes into a
-single statement.</p>
-<p>Let’s say we want calculate the mean and SD of the GDP (in billions) for each
-country, but only considering data from 1980 and onwards. We can accomplish this
-all in one step as follows.</p>
-<pre class="r"><code># select() columns, filter() by year, calculate GDP in billions, mean() and sd()
-# of GDP in billions
-gapminder_final &lt;- gapminder %&gt;%
-    select(country, year, pop, gdpPercap) %&gt;%
-    filter(year &gt;= 1980) %&gt;%
-    mutate(gdp_billion = gdpPercap * pop / 10^9) %&gt;%
-    group_by(country) %&gt;%
-    summarise(mean_gdpBillion = mean(gdp_billion), sd_gdpBillion = sd(gdp_billion))
-
-head(gapminder_final)</code></pre>
-<pre><code># A tibble: 6 x 3
-  country     mean_gdpBillion sd_gdpBillion
-  &lt;fct&gt;                 &lt;dbl&gt;         &lt;dbl&gt;
-1 Afghanistan            16.4          7.66
-2 Albania                13.1          4.84
-3 Algeria               149.          33.2 
-4 Angola                 28.9         15.5 
-5 Argentina             353.          91.5 
-6 Australia             478.         154.  </code></pre>
+<div id="right_join" class="section level3">
+<h3>right_join()</h3>
+<p><code>right_join()</code> works exactly the same with and you can also specify which column you wish to join by to get the same results</p>
+<pre class="r"><code>right_join(band_members, band_instruments, by = &quot;name&quot;)</code></pre>
+<pre><code># A tibble: 3 x 3
+  name  band    plays 
+  &lt;chr&gt; &lt;chr&gt;   &lt;chr&gt; 
+1 John  Beatles guitar
+2 Paul  Beatles bass  
+3 Keith &lt;NA&gt;    guitar</code></pre>
+<blockquote>
+<p><strong>Extra:</strong> Note that you can have different column names in each of your data frames, and still join the tables together. The syntax for this is:</p>
+<pre><code>left_join(x, y, by = c(&quot;columnX&quot; = &quot;columnY&quot;))</code></pre>
+</blockquote>
 <hr />
+</div>
+<div id="challenge-4-tying-it-all-together-10-mins" class="section level3">
+<h3><span style="color: darkorange;">Challenge 4: Tying it all together</span> (10 mins)</h3>
+<p>Now let’s use all the commands we’ve covered and combine them with pipes into a single statement.</p>
+<p>Calculate the mean and standard deviation (<code>sd()</code>) of the total GDP for all counties in Asia from 1990 and onwards.</p>
+<hr />
+</div>
 </div>
 <div id="challenge-answers" class="section level2">
 <h2>Challenge answers</h2>
@@ -383,8 +374,29 @@ result &lt;- gapminder %&gt;%
 glimpse(result)</code></pre>
 <p><strong>Challenge 2</strong> : B &amp; D</p>
 <p><strong>Challenge 3</strong> :</p>
-<pre class="r"><code>gapminder_multi_2 &lt;- gapminder %&gt;%
+<pre class="r"><code>gapminder %&gt;%
     select(-continent) %&gt;%
     filter(country == &quot;Canada&quot;) %&gt;%
     mutate(gdp_total = gdpPercap * pop)</code></pre>
+<p><strong>Challenge 4</strong> :</p>
+<pre class="r"><code>gapminder %&gt;%
+    filter(continent == &quot;Asia&quot;, year &gt;= 1990) %&gt;%
+    mutate(totalGDP = gdpPercap * pop) %&gt;%
+    group_by(country) %&gt;%
+    summarise(totalGDP_mean = mean(totalGDP), 
+              totalGDP_sd = sd(totalGDP))</code></pre>
+<pre><code># A tibble: 33 x 3
+   country          totalGDP_mean totalGDP_sd
+   &lt;fct&gt;                    &lt;dbl&gt;       &lt;dbl&gt;
+ 1 Afghanistan            1.85e10     8.94e 9
+ 2 Bahrain                1.47e10     4.81e 9
+ 3 Bangladesh             1.45e11     4.94e10
+ 4 Cambodia               1.28e10     7.82e 9
+ 5 China                  3.82e12     2.00e12
+ 6 Hong Kong, China       2.03e11     5.57e10
+ 7 India                  1.74e12     7.33e11
+ 8 Indonesia              6.15e11     1.43e11
+ 9 Iran                   5.96e11     1.58e11
+10 Iraq                   8.98e10     2.91e10
+# … with 23 more rows</code></pre>
 </div>
