@@ -301,7 +301,7 @@ summarise(LifeExp_ang = max(lifeExp),
 Let's say you have two data frames that you want to combine. Both data frames contain a column with unique identifiers, but each data frame may contain different columns of information. That's where join functions come in!
 
 
-<img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/Common_joins-01.png?raw=true"/>
+<img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/Common_joins-01.png?raw=true"/> 
 
 <img src = "https://github.com/ytakemon/YukaTakemon/blob/master/static/img/DataJam2020/leftjoin_image.png?raw=true"/>
 
