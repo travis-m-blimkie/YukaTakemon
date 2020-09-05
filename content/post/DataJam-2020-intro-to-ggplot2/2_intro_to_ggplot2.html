@@ -1,27 +1,3 @@
----
-title: "DataJam 2020 Lesson 3 : Intro to ggplot2" 
-author: "Travis Blimkie"
-slug: DataJam-2020-intro
-categories:
-  - R
-  - DataJam-2020
-  - tutorial
-tags: [R, DataJam-2020, tutorial]
-subtitle: ''
-summary: ''
-authors: [Travis Blimkie]
-date: "2020-08-30 13:39:31"
-featured: no
-image:
-  caption: ''
-  focal_point: ''
-  preview_only: no
-projects: []
-output:
-  blogdown::html_page:
-    toc: false
----
-
 
 
 <hr />
@@ -60,7 +36,7 @@ library(gapminder)</code></pre>
 <p>Let’s start off with an example:</p>
 <pre class="r"><code>ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
 <p><br></p>
 <p>So the first thing we do is call the <code>ggplot</code> function. This function lets R
 know that we’re creating a new plot, and any of the arguments we give the
@@ -75,7 +51,7 @@ want to plot the “gdpPercap” column of the gapminder data frame on the x-axi
 the “lifeExp” column on the y-axis.</p>
 <p>By itself, the call to <code>ggplot</code> isn’t enough to draw a figure:</p>
 <pre class="r"><code>ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp))</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
 <p><br></p>
 <p>We need to tell <code>ggplot</code> how we want to visually represent the data, which we
 do by adding a new <strong>geom</strong> layer. In our example, we used <code>geom_point</code>, which
@@ -83,7 +59,7 @@ tells <code>ggplot</code> we want to visually represent the relationship between
 <strong>y</strong> as a scatterplot of points:</p>
 <pre class="r"><code>ggplot(data = gapminder, aes(x = gdpPercap, y = lifeExp)) +
   geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
 <p><br></p>
 <div id="challenge-1" class="section level3">
 <h3>Challenge 1</h3>
@@ -100,7 +76,7 @@ on the x-axis.</p>
 <p>Here is one possible solution:</p>
 <pre class="r"><code>ggplot(data = gapminder, aes(x = year, y = lifeExp)) +
   geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="challenge-2" class="section level3">
@@ -115,7 +91,7 @@ column. What trends do you see in the data? Are they what you expected?</p>
 <h3>Solution to Challenge 2</h3>
 <pre class="r"><code>ggplot(data = gapminder, aes(x = year, y = lifeExp, colour = continent)) +
  geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p><br></p>
 </div>
 </div>
@@ -129,7 +105,7 @@ argument. Similarly, the first two column names of <code>aes()</code> are assume
 x and y arguments.</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country, colour = continent)) +
   geom_line()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-8-1.png" width="672" /></p>
 <p><br></p>
 <p>Instead of adding a <code>geom_point</code> layer, we’ve added a <code>geom_line</code> layer. We’ve
 added the <strong>by</strong> <em>aesthetic</em>, which tells <code>ggplot</code> to draw a line for each
@@ -139,7 +115,7 @@ simply add another layer to the plot:</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country, colour = continent)) +
   geom_line() +
   geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
 <p><br></p>
 <p>It’s important to note that each layer is drawn on top of the previous layer. In
 this example, the points have been drawn <em>on top of</em> the lines. Here’s a
@@ -147,7 +123,7 @@ demonstration:</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country)) +
   geom_line(aes(colour = continent)) +
   geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-10-1.png" width="672" /></p>
 <p><br></p>
 <p>In this example, the <em>aesthetic</em> mapping of <strong>colour</strong> has been moved from the
 global plot options in <code>ggplot</code> to the <code>geom_line</code> layer so it no longer applies
@@ -175,7 +151,7 @@ happened?</p>
 <pre class="r"><code>ggplot(gapminder, aes(year, lifeExp, by = country)) +
   geom_point() +
   geom_line(aes(colour = continent))</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-11-1.png" width="672" /></p>
 <p><br></p>
 <p>The lines now get drawn over the points!</p>
 <p><br></p>
@@ -187,7 +163,7 @@ happened?</p>
 demonstrate we’ll go back to our first example:</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp, colour = continent)) +
   geom_point()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-12-1.png" width="672" /></p>
 <p><br></p>
 <p>Currently it’s hard to see the relationship between the points due to some strong
 outliers in GDP per capita. We can change the scale of units on the x axis using
@@ -198,7 +174,7 @@ a large amount of data which is very clustered.</p>
 <pre class="r"><code>ggplot(gapminder, aes(gdpPercap, lifeExp)) +
   geom_point(alpha = 0.5) +
   scale_x_log10()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-13-1.png" width="672" /></p>
 <p><br></p>
 <p>The <code>log10</code> function applied a transformation to the values of the gdpPercap
 column before rendering them on the plot, so that each multiple of 10 now only
@@ -216,7 +192,7 @@ x-axis.</p>
   geom_point() +
   scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;)</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-14-1.png" width="672" /></p>
 <p><br></p>
 <p>We can make the line thicker by <em>setting</em> the <strong>size</strong> aesthetic in the
 <code>geom_smooth</code> layer:</p>
@@ -224,7 +200,7 @@ x-axis.</p>
   geom_point() +
   scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;, size = 1.5)</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-15-1.png" width="672" /></p>
 <p><br></p>
 <p>There are two ways an <em>aesthetic</em> can be specified. Here we <em>set</em> the <strong>size</strong>
 aesthetic by passing it as an argument to <code>geom_smooth</code>. Previously in the
@@ -242,7 +218,7 @@ example. Hint: do not use the <code>aes</code> function.</p>
   geom_point(size = 3, colour = &quot;orange&quot;) +
   scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;, size = 1.5)</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="challenge-4b" class="section level3">
@@ -260,7 +236,7 @@ Hint: The colour argument can be used inside the aesthetic.</p>
   geom_point(size = 2, alpha = 0.5) +
   scale_x_log10() +
   geom_smooth(method = &quot;lm&quot;, size = 1.5)</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-17-1.png" width="672" /></p>
 <p><br></p>
 </div>
 </div>
@@ -277,7 +253,7 @@ country must be equal to one of the four specified countries.</p>
 ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
   geom_line() +
   facet_wrap(~country)</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-18-1.png" width="672" /></p>
 <p><br></p>
 <p>The <code>facet_wrap</code> layer took a “formula” as its argument, denoted by the tilde
 (<code>~</code>). This tells R to draw a panel for each unique value in the country column
@@ -304,7 +280,7 @@ ggplot(gapminder_small, aes(year, lifeExp, colour = continent)) +
   labs(x = &quot;Year&quot;, y = &quot;Life expectancy&quot;, title = &quot;Figure 1&quot;, colour = &quot;Continent&quot;) +
   theme_bw() +
   theme(axis.text.x = element_blank(), axis.ticks.x = element_blank())</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-19-1.png" width="672" /></p>
 <p><br></p>
 </div>
 <div id="exporting-the-plot" class="section level2">
@@ -358,7 +334,82 @@ a relevant question and answer on Stack Overflow with reusable code to modify!</
   geom_density(alpha = 0.6) +
   facet_wrap(~year, scales = &quot;free_y&quot;) +
   scale_x_log10()</code></pre>
-<p><img src="/post/DataJam-2020-intro-to-ggplot2/2_intro_to_ggplot2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/unnamed-chunk-21-1.png" width="672" /></p>
 <p><br></p>
 </div>
+</div>
+<div id="making-heatmaps-with-corrplot" class="section level2">
+<h2>Making Heatmaps with <code>corrplot</code></h2>
+<p>While there is a lot that ggplot2 can do, one limitation is in the construction
+of heatmaps, another common type of visualiztion in many disciplines of science.
+Let’s start by installing, then loading it into RStudio.</p>
+<pre class="r"><code># install.packages(&quot;corrplot&quot;)
+library(corrplot)</code></pre>
+<p><br></p>
+<p>Great! Now we’ll use the <code>mtcars</code> data set included in R to try out different heatmaps.</p>
+<pre class="r"><code># Quick look at mtcars.
+head(mtcars)</code></pre>
+<pre><code>                   mpg cyl disp  hp drat    wt  qsec vs am gear carb
+Mazda RX4         21.0   6  160 110 3.90 2.620 16.46  0  1    4    4
+Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02  0  1    4    4
+Datsun 710        22.8   4  108  93 3.85 2.320 18.61  1  1    4    1
+Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44  1  0    3    1
+Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02  0  0    3    2
+Valiant           18.1   6  225 105 2.76 3.460 20.22  1  0    3    1</code></pre>
+<pre class="r"><code># Pearson correlation is default. See ?cor for other available methods
+cor_mtcars &lt;- cor(mtcars) 
+head(cor_mtcars)</code></pre>
+<pre><code>            mpg        cyl       disp         hp       drat         wt
+mpg   1.0000000 -0.8521620 -0.8475514 -0.7761684  0.6811719 -0.8676594
+cyl  -0.8521620  1.0000000  0.9020329  0.8324475 -0.6999381  0.7824958
+disp -0.8475514  0.9020329  1.0000000  0.7909486 -0.7102139  0.8879799
+hp   -0.7761684  0.8324475  0.7909486  1.0000000 -0.4487591  0.6587479
+drat  0.6811719 -0.6999381 -0.7102139 -0.4487591  1.0000000 -0.7124406
+wt   -0.8676594  0.7824958  0.8879799  0.6587479 -0.7124406  1.0000000
+            qsec         vs         am       gear       carb
+mpg   0.41868403  0.6640389  0.5998324  0.4802848 -0.5509251
+cyl  -0.59124207 -0.8108118 -0.5226070 -0.4926866  0.5269883
+disp -0.43369788 -0.7104159 -0.5912270 -0.5555692  0.3949769
+hp   -0.70822339 -0.7230967 -0.2432043 -0.1257043  0.7498125
+drat  0.09120476  0.4402785  0.7127111  0.6996101 -0.0907898
+wt   -0.17471588 -0.5549157 -0.6924953 -0.5832870  0.4276059</code></pre>
+<pre class="r"><code># Plot heatmap
+corrplot(cor_mtcars, method = &quot;circle&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/quick_heatmap-1.png" width="672" /></p>
+<p><br></p>
+<p>In this heat map both size and colour corresponds to the Pearson coefficient.
+There are also other correlative measures we can explore:</p>
+<pre class="r"><code>corrplot(cor_mtcars, method = &quot;square&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/square_heatmap-1.png" width="672" /></p>
+<p><br></p>
+<pre class="r"><code>corrplot(cor_mtcars, method = &quot;number&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/num_heatmap-1.png" width="672" /></p>
+<p><br></p>
+<p>Heat maps are redundant, and we can eliminate this by taking a slice of the map:</p>
+<pre class="r"><code>corrplot(cor_mtcars, type = &quot;upper&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap_slice-1.png" width="672" /></p>
+<pre class="r"><code>corrplot(cor_mtcars, type = &quot;lower&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap_slice-2.png" width="672" /></p>
+<p><br></p>
+<p>We can also mix together shapes and numbers (or any two combinations of methods)
+to increase the amount of information we can represent in a heat map.</p>
+<pre class="r"><code>corrplot.mixed(cor_mtcars, lower = &quot;number&quot;, upper = &quot;circle&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/mixing%20heatmaps-1.png" width="672" /></p>
+<p><br></p>
+<p>The correlation matrix can be reordered according to the correlation
+coefficient. This is important to identify the hidden structure and pattern in
+the matrix. There are multiple methods available for clustering, but we will
+only use the k-means hierarchical clustering method here:</p>
+<pre class="r"><code>corrplot(cor_mtcars, order = &quot;hclust&quot;)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap%20hclust-1.png" width="672" /></p>
+<p><br></p>
+<p>We can also direct <code>corrplot</code> to identify the two distinct groups we can see by
+eye.</p>
+<pre class="r"><code>corrplot(cor_mtcars, order = &quot;hclust&quot;, addrect = 2)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap%20hclust%20group2-1.png" width="672" /></p>
+<p><br></p>
+<p>And also groups that might not be immediately clear to us.</p>
+<pre class="r"><code>corrplot(cor_mtcars, order = &quot;hclust&quot;, addrect = 3)</code></pre>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap%20hclust%20group3-1.png" width="672" /></p>
+<p><br></p>
 </div>

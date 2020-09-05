@@ -1,6 +1,6 @@
 ---
 title: "DataJam 2020 Lesson 3 : Intro to ggplot2" 
-author: "Travis Blimkie"
+author: "Travis Blimkie & Yuka Takemon"
 slug: DataJam-2020-intro
 categories:
   - R
@@ -430,6 +430,87 @@ ggplot(gapminder, aes(gdpPercap, fill = continent)) +
   geom_density(alpha = 0.6) +
   facet_wrap(~year, scales = "free_y") +
   scale_x_log10()
+```
+
+<br>
+
+## Making Heatmaps with `corrplot`
+While there is a lot that ggplot2 can do, one limitation is in the construction
+of heatmaps, another common type of visualiztion in many disciplines of science.
+Let's start by installing, then loading it into RStudio.
+```{r install_corrplot}
+# install.packages("corrplot")
+library(corrplot)
+```
+
+<br>
+
+Great! Now we'll use the `mtcars` data set included in R to try out different heatmaps.
+```{r quick_heatmap}
+# Quick look at mtcars.
+head(mtcars)
+
+# Pearson correlation is default. See ?cor for other available methods
+cor_mtcars <- cor(mtcars) 
+head(cor_mtcars)
+
+# Plot heatmap
+corrplot(cor_mtcars, method = "circle")
+```
+
+<br>
+
+In this heat map both size and colour corresponds to the Pearson coefficient.
+There are also other correlative measures we can explore:
+```{r square_heatmap}
+corrplot(cor_mtcars, method = "square")
+```
+
+<br>
+
+```{r num_heatmap}
+corrplot(cor_mtcars, method = "number")
+```
+
+<br>
+
+Heat maps are redundant, and we can eliminate this by taking a slice of the map:
+```{r heatmap_slice}
+corrplot(cor_mtcars, type = "upper")
+corrplot(cor_mtcars, type = "lower")
+```
+
+<br>
+
+We can also mix together shapes and numbers (or any two combinations of methods)
+to increase the amount of information we can represent in a heat map.
+```{r mixing heatmaps}
+corrplot.mixed(cor_mtcars, lower = "number", upper = "circle")
+```
+
+<br>
+
+The correlation matrix can be reordered according to the correlation
+coefficient. This is important to identify the hidden structure and pattern in
+the matrix. There are multiple methods available for clustering, but we will
+only use the k-means hierarchical clustering method here:
+```{r heatmap hclust}
+corrplot(cor_mtcars, order = "hclust")
+```
+
+<br>
+
+We can also direct `corrplot` to identify the two distinct groups we can see by
+eye.
+```{r heatmap hclust group2}
+corrplot(cor_mtcars, order = "hclust", addrect = 2)
+```
+
+<br>
+
+And also groups that might not be immediately clear to us.
+```{r heatmap hclust group3}
+corrplot(cor_mtcars, order = "hclust", addrect = 3)
 ```
 
 <br>
