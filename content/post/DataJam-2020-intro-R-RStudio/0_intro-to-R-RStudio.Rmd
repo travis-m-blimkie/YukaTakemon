@@ -1,6 +1,6 @@
 ---
 title: "DataJam 2020 Lesson 1 : Introduction to R and Some Best Practices Suggestions" 
-author: "Amy Lee (@minisciencegirl) & Travis Blimkie"
+author: "Travis Blimkie & Yuka Takemon"
 slug: DataJam-2020-intro
 categories:
   - R
@@ -9,7 +9,7 @@ categories:
 tags: [R, DataJam-2020, tutorial]
 subtitle: ''
 summary: ''
-authors: [Amy Lee (@minisciencegirl) & Travis Blimkie]
+authors: [Travis Blimkie & Yuka Takemon]
 date: "`r format(Sys.time())`"
 featured: no
 projects: []
