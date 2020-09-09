@@ -474,7 +474,8 @@ corrplot(cor_mtcars, method = "number")
 
 <br>
 
-Heat maps are redundant, and we can eliminate this by taking a slice of the map:
+Heat maps are redundant, with the top-right and bottom-left portions of the plot
+being the same. We can eliminate this by taking a slice of the map:
 ```{r heatmap_slice}
 corrplot(cor_mtcars, type = "upper")
 corrplot(cor_mtcars, type = "lower")
@@ -484,7 +485,7 @@ corrplot(cor_mtcars, type = "lower")
 
 We can also mix together shapes and numbers (or any two combinations of methods)
 to increase the amount of information we can represent in a heat map.
-```{r mixing heatmaps}
+```{r mixing_heatmaps}
 corrplot.mixed(cor_mtcars, lower = "number", upper = "circle")
 ```
 
@@ -494,7 +495,7 @@ The correlation matrix can be reordered according to the correlation
 coefficient. This is important to identify the hidden structure and pattern in
 the matrix. There are multiple methods available for clustering, but we will
 only use the k-means hierarchical clustering method here:
-```{r heatmap hclust}
+```{r heatmap_hclust}
 corrplot(cor_mtcars, order = "hclust")
 ```
 
@@ -502,14 +503,14 @@ corrplot(cor_mtcars, order = "hclust")
 
 We can also direct `corrplot` to identify the two distinct groups we can see by
 eye.
-```{r heatmap hclust group2}
+```{r heatmap_hclust_group2}
 corrplot(cor_mtcars, order = "hclust", addrect = 2)
 ```
 
 <br>
 
 And also groups that might not be immediately clear to us.
-```{r heatmap hclust group3}
+```{r heatmap_hclust_group3}
 corrplot(cor_mtcars, order = "hclust", addrect = 3)
 ```
 

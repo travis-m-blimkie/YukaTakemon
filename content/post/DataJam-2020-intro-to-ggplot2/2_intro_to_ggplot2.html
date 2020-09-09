@@ -385,7 +385,8 @@ There are also other correlative measures we can explore:</p>
 <pre class="r"><code>corrplot(cor_mtcars, method = &quot;number&quot;)</code></pre>
 <p><img src="2_intro_to_ggplot2_files/figure-html/num_heatmap-1.png" width="672" /></p>
 <p><br></p>
-<p>Heat maps are redundant, and we can eliminate this by taking a slice of the map:</p>
+<p>Heat maps are redundant, with the top-right and bottom-left portions of the plot
+being the same. We can eliminate this by taking a slice of the map:</p>
 <pre class="r"><code>corrplot(cor_mtcars, type = &quot;upper&quot;)</code></pre>
 <p><img src="2_intro_to_ggplot2_files/figure-html/heatmap_slice-1.png" width="672" /></p>
 <pre class="r"><code>corrplot(cor_mtcars, type = &quot;lower&quot;)</code></pre>
@@ -394,22 +395,22 @@ There are also other correlative measures we can explore:</p>
 <p>We can also mix together shapes and numbers (or any two combinations of methods)
 to increase the amount of information we can represent in a heat map.</p>
 <pre class="r"><code>corrplot.mixed(cor_mtcars, lower = &quot;number&quot;, upper = &quot;circle&quot;)</code></pre>
-<p><img src="2_intro_to_ggplot2_files/figure-html/mixing%20heatmaps-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/mixing_heatmaps-1.png" width="672" /></p>
 <p><br></p>
 <p>The correlation matrix can be reordered according to the correlation
 coefficient. This is important to identify the hidden structure and pattern in
 the matrix. There are multiple methods available for clustering, but we will
 only use the k-means hierarchical clustering method here:</p>
 <pre class="r"><code>corrplot(cor_mtcars, order = &quot;hclust&quot;)</code></pre>
-<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap%20hclust-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap_hclust-1.png" width="672" /></p>
 <p><br></p>
 <p>We can also direct <code>corrplot</code> to identify the two distinct groups we can see by
 eye.</p>
 <pre class="r"><code>corrplot(cor_mtcars, order = &quot;hclust&quot;, addrect = 2)</code></pre>
-<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap%20hclust%20group2-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap_hclust_group2-1.png" width="672" /></p>
 <p><br></p>
 <p>And also groups that might not be immediately clear to us.</p>
 <pre class="r"><code>corrplot(cor_mtcars, order = &quot;hclust&quot;, addrect = 3)</code></pre>
-<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap%20hclust%20group3-1.png" width="672" /></p>
+<p><img src="2_intro_to_ggplot2_files/figure-html/heatmap_hclust_group3-1.png" width="672" /></p>
 <p><br></p>
 </div>
