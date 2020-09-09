@@ -1,6 +1,6 @@
 ---
 title: "DataJam 2020 Lesson 1 : Introduction to R and Some Best Practices Suggestions" 
-author: "Amy Lee (@minisciencegirl) & Travis Blimkie"
+author: "Travis Blimkie & Yuka Takemon"
 slug: DataJam-2020-intro
 categories:
   - R
@@ -9,7 +9,7 @@ categories:
 tags: [R, DataJam-2020, tutorial]
 subtitle: ''
 summary: ''
-authors: [Amy Lee (@minisciencegirl) & Travis Blimkie]
+authors: [Travis Blimkie & Yuka Takemon]
 date: "`r format(Sys.time())`"
 featured: no
 projects: []
@@ -21,6 +21,17 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, message = FALSE, warning = FALSE, comment = "")
 ```
+
+***
+
+**Workshop info**
+
+* **When:** September 11th, 5:30pm (PST, Vancouver, BC)
+* **Where:** Online
+* **Requirements:** Participants must have a laptop or desktop with a Mac, Linux, or Windows operating system. (Tablets and Chromebooks are not advised.) Please have the latest version of [R](https://www.r-project.org/) and [RStudio](https://rstudio.com/products/rstudio/download/#download) downloaded and running (free!).
+* **Code of conduct:** Everyone participating in the Vancouver DataJam activities are required to conform to the [Code of Conduct](https://drive.google.com/file/d/1AweOzN_CrcXbn0theuy7PovpRgLfmrBI/view?usp=sharing)
+
+***
 
 ## What are R and RStudio?
 
